@@ -1,0 +1,103 @@
+Introduction in R
+========================================================
+author: Dmitry Petukhov
+date: 01.11.2016
+autosize: true
+
+Types
+========================================================
+- Primitives (numeric, integer, character, logical, factor)
+- Arrays
+- Lists
+- Vectors
+- Data Frames
+- Environments
+- Others (functions, closures, promises..)
+```{r}
+x <- "Hello, DevCon!"
+x
+class(x)
+```
+
+Primitives Demo
+========================================================
+
+```{r}
+pi <- 3.14
+class(pi)
+
+isItSimple <- TRUE
+class(isItSimple)
+
+as.integer(isItSimple)
+```
+
+Vectors Demo
+========================================================
+
+```{r}
+v <- c(1, 2, 10:12, rep(100, 2), seq(1000, 1100, 50))
+v
+
+length(v)
+mean(v)
+v[1]
+v[(v > 90 & v < 990) | v == 1000]
+```
+
+Data Frames Demo
+========================================================
+
+```{r}
+df <- data.frame("Animals" = c("Cats", "Dogs", "Raccoon"), 
+                 "Rating" = c(100, 21, 25))
+str(df)
+names(df)
+
+s <- sum(df$Rating)
+print(paste0("Total: ", s, "%"))
+```
+
+Functions
+========================================================
+
+*f* <- function(arg, optArg1 = 0, optArgN = "N") { #expression }
+
+```{r}
+pow <- function(x, extent = 2) x^extent
+class(pow)
+
+pow(2)
+pow(2, 3)
+pow(extent = 3, 2)
+```
+
+Random Number Generation
+========================================================
+
+```{r}
+# Normal variates, mean = 0, sd = 1
+d <- rnorm(1000)
+plot(d)
+```
+
+Random Number Generation (2)
+========================================================
+
+```{r}
+d <- rnorm(1000, mean = 100, sd = 5)
+boxplot(d)
+```
+Also supported type of distributions: *Poisson, Gamma, Cauchy, chi-squared, beta, binominal, etc.*
+
+Practice
+========================================================
+
+In: 
+- One famous bank's hackathon
+- 3 FinTech tasks
+
+Out:
+- 0.5M rub award
+
+__Let's do it!__
