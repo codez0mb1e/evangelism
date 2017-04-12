@@ -1,5 +1,4 @@
-# Evangelism
-## DevCon School
+# DevCon School
 - Part 1: Introduction to R
 - Part 2: R + Apache Spark in Microsoft Azure.
 
