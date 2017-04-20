@@ -1,5 +1,5 @@
 # Twitter Crawler Demo
-Twitter Sentiment Analysis. More information http://0xcode.in/2017/breakpoint 
+Twitter Sentiment Analysis. More information http://0xcode.in/democratizing-ai
 
 ### Requirements
 - [Visual Studio 2015](https://www.visualstudio.com/downloads/)
