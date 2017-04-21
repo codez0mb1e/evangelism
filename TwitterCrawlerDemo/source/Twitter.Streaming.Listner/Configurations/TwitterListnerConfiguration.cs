@@ -15,8 +15,11 @@ namespace Twitter.Streaming.Configurations
     {
         public ITwitterCredential Credentials => new TwitterCredential();
 
-        public IEnumerable<string> Tracks => new[] {"Azure", "AWS", "GCP", "#GlobalAzure"};
+        public IEnumerable<string> Tracks => new[] {
+            "Azure", "AWS", "GCP",
+            "#GlobalAzure", "#msdevcon", "#devconschool"
+        };
 
-        public IEnumerable<int> Languages => new[] {12};
+        public IEnumerable<int> Languages => new[] { 12 };
     }
 }
