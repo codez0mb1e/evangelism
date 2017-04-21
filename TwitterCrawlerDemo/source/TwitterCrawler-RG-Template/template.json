@@ -1,0 +1,233 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces_twittercrawler_name": {
+            "defaultValue": "twittercrawler",
+            "type": "String"
+        },
+        "virtualNetworks_TwitterCrawler_RG_vnet_name": {
+            "defaultValue": "TwitterCrawler-RG-vnet",
+            "type": "String"
+        },
+        "storageAccounts_twittercrawlerintrl_name": {
+            "defaultValue": "twittercrawlerintrl",
+            "type": "String"
+        },
+        "storageAccounts_twittercrawlermonitor_name": {
+            "defaultValue": "twittercrawlermonitor",
+            "type": "String"
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "defaultValue": "twittercrawler/RootManageSharedAccessKey",
+            "type": "String"
+        },
+        "AuthorizationRules_Listner_name": {
+            "defaultValue": "twittercrawler/Listner",
+            "type": "String"
+        },
+        "AuthorizationRules_Sender_name": {
+            "defaultValue": "twittercrawler/Sender",
+            "type": "String"
+        },
+        "eventhubs_cloud_raw_tweets_name": {
+            "defaultValue": "twittercrawler/cloud-raw-tweets",
+            "type": "String"
+        },
+        "consumergroups_$Default_name": {
+            "defaultValue": "twittercrawler/cloud-raw-tweets/$Default",
+            "type": "String"
+        },
+        "consumergroups_stream_reader_name": {
+            "defaultValue": "twittercrawler/cloud-raw-tweets/stream-reader",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler'.",
+            "type": "Microsoft.EventHub/namespaces",
+            "sku": {
+                "name": "Standard",
+                "tier": "Standard"
+            },
+            "kind": "EventHub",
+            "name": "[parameters('namespaces_twittercrawler_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "tags": {},
+            "properties": {
+                "provisioningState": "Succeeded",
+                "status": "Active",
+                "createdAt": "2017-03-31T13:18:46.98Z",
+                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_twittercrawler_name'),'.servicebus.windows.net:443/')]",
+                "enabled": true,
+                "updatedAt": "2017-03-31T13:19:11.89Z"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourceGroups/TwitterCrawler-RG/providers/Microsoft.Network/virtualNetworks/TwitterCrawler-RG-vnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_TwitterCrawler_RG_vnet_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "westeurope",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourceGroups/twittercrawler-rg/providers/Microsoft.Storage/storageAccounts/twittercrawlerintrl'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_twittercrawlerintrl_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {},
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourceGroups/twittercrawler-rg/providers/Microsoft.Storage/storageAccounts/twittercrawlermonitor'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_twittercrawlermonitor_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "westeurope",
+            "tags": {},
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler/AuthorizationRules/RootManageSharedAccessKey'.",
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "name": "[parameters('AuthorizationRules_RootManageSharedAccessKey_name')]",
+            "apiVersion": "2015-08-01",
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_twittercrawler_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler/AuthorizationRules/Listner'.",
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "name": "[parameters('AuthorizationRules_Listner_name')]",
+            "apiVersion": "2015-08-01",
+            "properties": {
+                "rights": [
+                    "Listen"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_twittercrawler_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler/AuthorizationRules/Sender'.",
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "name": "[parameters('AuthorizationRules_Sender_name')]",
+            "apiVersion": "2015-08-01",
+            "properties": {
+                "rights": [
+                    "Send"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_twittercrawler_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler/eventhubs/cloud-raw-tweets'.",
+            "type": "Microsoft.EventHub/namespaces/eventhubs",
+            "name": "[parameters('eventhubs_cloud_raw_tweets_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "properties": {
+                "messageRetentionInDays": 1,
+                "status": "Active",
+                "createdAt": "2017-03-31T15:47:55.663",
+                "updatedAt": "2017-03-31T15:47:58.9",
+                "partitionCount": 16,
+                "partitionIds": [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15"
+                ]
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_twittercrawler_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler/eventhubs/cloud-raw-tweets/consumergroups/$Default'.",
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "name": "[parameters('consumergroups_$Default_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "properties": {
+                "createdAt": "2017-03-31T15:47:55.1079583",
+                "updatedAt": "2017-03-31T15:47:55.1079583"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_twittercrawler_name'))]",
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventhubs_cloud_raw_tweets_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/<your_subscription_id>/resourcegroups/TwitterCrawler-RG/providers/Microsoft.EventHub/namespaces/twittercrawler/eventhubs/cloud-raw-tweets/consumergroups/stream-reader'.",
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "name": "[parameters('consumergroups_stream_reader_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "properties": {
+                "createdAt": "2017-03-31T15:49:14.8751187",
+                "updatedAt": "2017-03-31T15:49:14.8751187"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_twittercrawler_name'))]",
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('eventhubs_cloud_raw_tweets_name'))]"
+            ]
+        }
+    ]
+}
