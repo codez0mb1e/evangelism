@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces_twittercrawler_name": {
+            "value": null
+        },
+        "virtualNetworks_TwitterCrawler_RG_vnet_name": {
+            "value": null
+        },
+        "storageAccounts_twittercrawlerintrl_name": {
+            "value": null
+        },
+        "storageAccounts_twittercrawlermonitor_name": {
+            "value": null
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "value": null
+        },
+        "AuthorizationRules_Listner_name": {
+            "value": null
+        },
+        "AuthorizationRules_Sender_name": {
+            "value": null
+        },
+        "eventhubs_cloud_raw_tweets_name": {
+            "value": null
+        },
+        "consumergroups_$Default_name": {
+            "value": null
+        },
+        "consumergroups_stream_reader_name": {
+            "value": null
+        }
+    }
+}
