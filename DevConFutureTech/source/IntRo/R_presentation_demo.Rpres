@@ -1,0 +1,44 @@
+R for sharing Knowledge
+========================================================
+author: Dmitry Petukhov
+date: 20.05.2017
+autosize: true
+
+Get started...
+========================================================
+We start from this...
+
+```{r}
+library(data.table)
+mcc.data <- fread("https://raw.githubusercontent.com/greggles/mcc-codes/master/mcc_codes.csv")
+
+head(mcc.data[, 1:2], 5)
+```
+
+Results
+========================================================
+As a result we have:
+```{r, echo = FALSE}
+library(ggplot2)
+
+qplot(speed, dist, data = cars) +
+  geom_point(aes(colour = dist)) + 
+  scale_colour_gradientn(colours = rainbow(4)) +
+  theme(
+    panel.background = element_rect(fill = "#21215f", colour = NA),
+    plot.background = element_rect(fill = "white",colour = NA),
+    panel.grid.minor = element_line("#736391", size = 0.1), 
+    panel.grid.major = element_line("#ecc6d9", size = 0.1)) +
+  theme(axis.text = element_text(size = 12, colour = "black"),
+        axis.title = element_text(size = 12, face = "bold"))
+
+```
+
+Features
+========================================================
+Also support:
+* *markdown*;
+* LaTeX;
+* PDF, HTML as output.
+
+## The end.
