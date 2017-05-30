@@ -1,8 +1,18 @@
-if (!require("ggplot2")) install.packages("ggplot2")
-if (!require("data.table")) install.packages("data.table")
-if (!require("dplyr")) install.packages("dplyr")
-if (!require("reshape2")) install.packages("reshape2")
-if (!require("ROCR")) install.packages("ROCR")
-if (!require("devtools")) install.packages("devtools")
+packages <- c("dplyr", "microbenchmark", "data.table", "reshape2", "ROCR",
+               "devtools", "shiny")
+packages.missing <- packages[!(packages %in% installed.packages()[, 1])]
 
-devtools::install_github("Microsoft/AzureSMR")
+
+## install packages 
+# from cran repository
+if (length(packages.missing) != 0) {
+  install.packages(packages.missing)
+}
+# from github
+devtools::install_github("ropensci/plotly")
+devtools::install_github('hadley/ggplot2')
+
+#GC
+rm(packages)
+rm(packages.missing)
+
