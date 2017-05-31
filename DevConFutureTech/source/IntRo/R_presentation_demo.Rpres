@@ -6,7 +6,7 @@ autosize: true
 
 Get started...
 ========================================================
-We start from this...
+In the beginning we downloaded data:
 
 ```{r}
 library(data.table)
@@ -18,6 +18,7 @@ head(mcc.data[, 1:2], 5)
 Results
 ========================================================
 As a result we have:
+
 ```{r, echo = FALSE}
 library(ggplot2)
 
