@@ -257,3 +257,4 @@ paket-files/
 .RData
 .Ruserdata
 
+*.RData
