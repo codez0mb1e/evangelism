@@ -1,8 +1,8 @@
 library(mlbench)
 library(caret)
 library(dplyr)
-library(MicrosoftML)
 
+# load and preproccesing data
 data(BreastCancer)
 View(BreastCancer)
 
@@ -18,11 +18,14 @@ dt.train <- dt[dt.train.IDs, ]
 dt.test <- dt[-dt.train.IDs,]
 
 
+# train and score models
+library(MicrosoftML)
+
 model.LR <- rxLogisticRegression(formula = Label ~ ., data = dt.train, type = "binary")
 model.FT <- rxFastTrees(formula = Label ~ ., data = dt.train, type = "binary")
 model.NN <- rxNeuralNet(formula = Label ~ ., data = dt.train, type = "binary")
 
-score <- rxPredict(model.NN, data = dt.test, extraVarsToWrite = "Label")
+score <- rxPredict(model.LR, data = dt.test, extraVarsToWrite = "Label")
 head(score)
 
 

@@ -11,8 +11,7 @@ if (length(packages.missing) != 0) {
 # from github
 #devtools::install_github("ropensci/plotly")
 #devtools::install_github('hadley/ggplot2')
-devtools::install_github('hadley/ggplot2')
+
 #GC
 rm(packages)
 rm(packages.missing)
-

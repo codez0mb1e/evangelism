@@ -51,7 +51,7 @@ trans <- trans.raw %>%
     TransDay, Amount
   )
 
-View(trans[0:1000, ])
+View(trans[1:1000, ])
 
 
 mcc <- mcc.raw %>%
@@ -104,14 +104,8 @@ x <- dcast(customers.stats, CustomerId + Gender ~ OperationType, value.var = "Me
 
 # vizualize
 library(ggplot2)
-p <- ggplot(x, aes(x = income, y = withdraw)) +
+ggplot(x, aes(x = income, y = withdraw)) +
   geom_point(alpha = 0.25) +
   xlab("Income, rub") + 
   ylab("Withdraw, rub") +
   facet_grid(. ~ Gender)
-
-p
-ggplotly(p)
-
-
-
