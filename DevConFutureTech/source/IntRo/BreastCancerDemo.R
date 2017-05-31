@@ -28,6 +28,8 @@ model.NN <- rxNeuralNet(formula = Label ~ ., data = dt.train, type = "binary")
 score <- rxPredict(model.LR, data = dt.test, extraVarsToWrite = "Label")
 head(score)
 
+roc <- rxRoc(actualVarName = "Label", predVarNames = "Probability.1", data = score)
+auc <- rxAuc(roc)
 
-rxRocCurve(actualVarName = "Label", predVarNames = "Probability.1", data = score)
-
+auc
+plot(roc)
