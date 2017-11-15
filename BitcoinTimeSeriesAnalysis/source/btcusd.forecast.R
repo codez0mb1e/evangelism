@@ -10,87 +10,81 @@ if (!require("microbenchmark")) install.packages("microbenchmark")
 ## Prepare 
 library(Quandl)
 library(dplyr)
+library(lubridate)
 
 Quandl.api_key("zL7BE8_cbDvuN1iAmg-w")
-BtcUsd.symbol <- "BITSTAMP/USD"
+symbol <- "BITSTAMP/USD"
 
 
 
 ## load financial data
-BtcUsd <- Quandl(BtcUsd.symbol) %>% 
-            filter(Date >= Sys.Date() - years(1)) %>% 
-            #filter(Date >= Sys.Date() - years(2) & Date < Sys.Date() - days(180)) %>% 
-            arrange(Date)
+quote <- Quandl(symbol) %>%  arrange(Date)
 
-ts.plot(BtcUsd$Last)
+ts.plot(quote$Last)
 
 
-
-
-#' Get Forecast 
+#' Get forecast 
 #'
 #' @param dt 
-#' @param f 
+#' @param forecastFun
 #' @param forecastingPeriod 
 #' @param frequency 
-getForecast <- function(dt, f, forecastingPeriod, frequency = 1) {
+getForecast <- function(dt, forecastFun, fromDate, toDate, frequency = 1) {
   require(dplyr)
   require(forecast)
   require(lubridate)
   
   stopifnot(
     is.data.frame(dt),
-    is.numeric(forecastingPeriod) && forecastingPeriod > 0,
+    is.function(forecastFun),
+    is.Date(fromDate) && is.Date(toDate) && toDate > fromDate,
     is.numeric(frequency) && frequency > 0
   )
   
-  dt.train <- dt %>% filter(Date < max(Date) - days(forecastingPeriod))
-  dt.test <- dt %>% filter(Date >= max(Date) - days(forecastingPeriod))
+  dt.train <- dt %>% filter(Date > fromDate - years(1) & Date <= fromDate)
+  dt.test <- dt %>% filter(Date > fromDate & Date <= toDate)
   
   
   dt.timeseries <- ts(dt.train$Last, frequency = frequency)
-  model <- f(dt.timeseries)
+  model <- forecastFun(dt.timeseries)
   
+  forecastingPeriod <- as.numeric(max(dt.test$Date)) - as.numeric(max(dt.train$Date)) - 1
   dt.forecast <- forecast(model, h = forecastingPeriod)
   print(dt.forecast)
   
   dt.test$PredictedValue <- as.numeric(dt.forecast$mean)
   
-  dt.test
+  
+  return(dt.test)
 }
 
 
 ## forecast
-forecastPeriod <- 30
+forecastTo <- Sys.Date() # as.Date("2017-02-01", "%Y-%m-%d")
+forecastFrom <- forecastTo - days(30) 
+
+forecastData <- quote %>% filter(Date > forecastFrom - years(1)) %>%  select(Date, Last)
 forecastFrequency <- 12
-forecastData <- BtcUsd %>% select(Date, Last)
 
-forecast.ArimaNonSeasonal  <- getForecast(forecastData, auto.arima, forecastPeriod) # ARIMA Non Seasonal
-forecast.ArimaSeasonal <- getForecast(forecastData, auto.arima, forecastPeriod, forecastFrequency) # ARIMA Seasonal
-forecast.EtsNonSeasonal <- getForecast(forecastData, ets, forecastPeriod) # ETS Non Seasonal
-forecast.EtsSeasonal <- getForecast(forecastData, ets, forecastPeriod, forecastFrequency) # ETS Seasonal
+forecast.ArimaNonSeasonal <- getForecast(forecastData, auto.arima, forecastFrom, forecastTo) # ARIMA Non Seasonal
+forecast.ArimaSeasonal <- getForecast(forecastData, auto.arima, forecastFrom, forecastTo, forecastFrequency) # ARIMA Seasonal
+forecast.EtsNonSeasonal <- getForecast(forecastData, ets, forecastFrom, forecastTo) # ETS Non Seasonal
+forecast.EtsSeasonal <- getForecast(forecastData, ets, forecastFrom, forecastTo, forecastFrequency) # ETS Seasonal
 
 
+## visualize
 plot(forecastData$Date, forecastData$Last, type = "l", col = "darkgrey", xlab = "Date", ylab = "Last", lwd = 1.5)
-lines(forecast.ArimaNonSeasonal$Date, forecast.ArimaNonSeasonal$PredictedValue, col = "red", lwd = 1.5)
-lines(forecast.ArimaSeasonal$Date, forecast.ArimaSeasonal$PredictedValue, col = "orange", lwd = 1.5)
-lines(forecast.EtsNonSeasonal$Date, forecast.EtsNonSeasonal$PredictedValue, col = "darkblue", lwd = 1.5)
-lines(forecast.EtsSeasonal$Date, forecast.EtsSeasonal$PredictedValue, col = "darkgreen", lwd = 1.5)
+
+lines(forecast.ArimaNonSeasonal$Date, forecast.ArimaNonSeasonal$PredictedValue, col = "red", lwd = 2)
+lines(forecast.ArimaSeasonal$Date, forecast.ArimaSeasonal$PredictedValue, col = "orange", lwd = 2)
+lines(forecast.EtsNonSeasonal$Date, forecast.EtsNonSeasonal$PredictedValue, col = "darkblue", lwd = 2)
+lines(forecast.EtsSeasonal$Date, forecast.EtsSeasonal$PredictedValue, col = "darkgreen", lwd = 2)
 
 legend("topleft", legend = c("Original Data", "ARIMA Non Seasonal", "ARIMA Seasonal", "ETS Non Seasonal", "ETS Seasonal"), 
        bty = c("n","n"), 
        lty = c(1,1), 
        pch = 16, 
        col = c("darkgrey", "red", "orange", "darkblue", "darkgreen"))
-
-
-
-
-
-
-
-
-
 
 
 
