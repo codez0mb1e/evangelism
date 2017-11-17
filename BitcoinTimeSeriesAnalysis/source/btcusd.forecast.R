@@ -22,6 +22,9 @@ symbol <- "BITSTAMP/USD"
 quote <- Quandl(symbol) %>%  arrange(Date)
 
 ts.plot(quote$Last)
+tsdisplay(quote$Last)
+tsdisplay(diff(log(quote$Last), lag = 1))
+tsdisplay(diff(log(quote$Last), lag = 7))
 
 
 #' Get forecast 
@@ -51,7 +54,9 @@ getForecast <- function(dt, forecastFun, fromDate, toDate, frequency = 1) {
   
   forecastingPeriod <- as.numeric(max(dt.test$Date)) - as.numeric(max(dt.train$Date)) - 1
   dt.forecast <- forecast(model, h = forecastingPeriod)
+  
   print(dt.forecast)
+  plot(dt.forecast)
   
   dt.test$PredictedValue <- as.numeric(dt.forecast$mean)
   
