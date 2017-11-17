@@ -8,9 +8,9 @@ if (!require("microbenchmark")) install.packages("microbenchmark")
 
 
 ## Prepare 
-library(Quandl)
 library(dplyr)
 library(lubridate)
+library(Quandl)
 
 Quandl.api_key("zL7BE8_cbDvuN1iAmg-w")
 symbol <- "BITSTAMP/USD"
@@ -18,6 +18,7 @@ symbol <- "BITSTAMP/USD"
 
 
 ## load financial data
+# note: if SSL cert verification failed: library(RCurl); library(httr); set_config( config( ssl_verifypeer = 0L ) )
 quote <- Quandl(symbol) %>%  arrange(Date)
 
 ts.plot(quote$Last)
