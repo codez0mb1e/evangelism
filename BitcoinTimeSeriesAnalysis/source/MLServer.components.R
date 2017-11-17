@@ -2,7 +2,7 @@
 library(RevoScaleR)
 
 # get data from DB
-connectionString <- "SERVER=hostname;DATABASE=GataGeeksDemoDb;UID=GataGeek;PWD=***;"
+connectionString <- "SERVER=<host>;DATABASE=DataGeeksDemoDb;UID=DataGeek;PWD=***;"
 sqlQuery <- "SELECT Id, Name, any FROM foo"
 
 # SQL Server table
@@ -80,3 +80,28 @@ client$consume(kyphosis)
 
 
 
+
+### DistributedR ----
+library(RevoScaleR)
+
+node.name <- "default"
+node.port <- 0
+
+ssh.hostName  <- '<host>.azurehdinsight.net'  # HDI secure shell hostname
+ssh.userName  <- 'remoteuser'# HDI SSH username
+ssh.switches  <- '-i /cygdrive/c/Data/R/davec' # HDI SSH private key
+
+hdfsDir <- paste("/user/RevoShare", ssh.userName, sep = "/")
+shareDir <- paste("/var/RevoShare" , ssh.userName, sep = "/")
+
+cluster <- RxSpark(
+  hdfsShareDir = hdfsDir,
+  shareDir     = shareDir,
+  sshUsername  = ssh.userName,
+  sshHostname  = ssh.hostName,
+  sshSwitches  = ssh.switches,
+  sshProfileScript = '/etc/profile',
+  nameNode     = node.name,
+  port         = node.port,
+  consoleOutput = TRUE
+)
