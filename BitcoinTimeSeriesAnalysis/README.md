@@ -6,4 +6,5 @@ Slides and more information on http://0xcode.in/2017/data-geeks-meetup
 ### Requirements
 - [RStudio](https://www.rstudio.com/) 
 - [Azure Account](https://azure.microsoft.com/)
+- [Quandl Account](https://www.quandl.com/)
 - love for data :)
