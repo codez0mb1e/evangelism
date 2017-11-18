@@ -12,18 +12,19 @@ library(dplyr)
 library(lubridate)
 library(Quandl)
 
-Quandl.api_key("zL7BE8_cbDvuN1iAmg-w")
+Quandl.api_key("<your_quandl_key>") # replace to your key from Quandl.com
 symbol <- "BITSTAMP/USD"
 
 
 
 ## load financial data
-# note: if SSL cert verification failed: library(RCurl); library(httr); set_config( config( ssl_verifypeer = 0L ) )
-quote <- Quandl(symbol) %>%  arrange(Date)
+# library(RCurl); library(httr); set_config(config(ssl_verifypeer = 0L)) # note: if SSL cert verification failed
+quote <- Quandl(symbol) %>% arrange(Date)
 
+# investigate data
 ts.plot(quote$Last)
 tsdisplay(quote$Last)
-tsdisplay(diff(log(quote$Last), lag = 1))
+tsdisplay(diff(quote$Last, lag = 1))
 tsdisplay(diff(log(quote$Last), lag = 7))
 
 
@@ -69,7 +70,7 @@ getForecast <- function(dt, forecastFun, fromDate, toDate, frequency = 1) {
 forecastTo <- Sys.Date() # as.Date("2017-02-01", "%Y-%m-%d")
 forecastFrom <- forecastTo - days(30) 
 
-forecastData <- quote %>% filter(Date > forecastFrom - years(1)) %>%  select(Date, Last)
+forecastData <- quote %>% filter(Date > forecastFrom - years(1)) %>% select(Date, Last)
 forecastFrequency <- 12
 
 forecast.ArimaNonSeasonal <- getForecast(forecastData, auto.arima, forecastFrom, forecastTo) # ARIMA Non Seasonal
@@ -79,7 +80,7 @@ forecast.EtsSeasonal <- getForecast(forecastData, ets, forecastFrom, forecastTo,
 
 
 ## visualize
-plot(forecastData$Date, forecastData$Last, type = "l", col = "darkgrey", xlab = "Date", ylab = "Last", lwd = 1.5)
+plot(forecastData$Date, forecastData$Last, type = "l", col = "darkgrey", xlab = "Date", ylab = "Last Price", lwd = 1.5)
 
 lines(forecast.ArimaNonSeasonal$Date, forecast.ArimaNonSeasonal$PredictedValue, col = "red", lwd = 2)
 lines(forecast.ArimaSeasonal$Date, forecast.ArimaSeasonal$PredictedValue, col = "orange", lwd = 2)
