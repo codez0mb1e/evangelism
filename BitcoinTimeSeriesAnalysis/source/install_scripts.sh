@@ -1,4 +1,11 @@
-### Install MS R Open  ----
+## install last updates
+sudo apt-get update        # Fetches the list of available updates
+sudo apt-get upgrade       # Strictly upgrades the current packages
+sudo apt-get dist-upgrade  # Installs updates (new ones)
+
+
+
+## Install MS R Open  ----
 wget https://mran.blob.core.windows.net/install/mro/3.4.2/microsoft-r-open-3.4.2.tar.gz
 
 tar -xf microsoft-r-open-3.4.2.tar.gz
@@ -12,13 +19,11 @@ wget http://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.d
 sudo dpkg -i packages-microsoft-prod.deb
 ls -la /etc/apt/sources.list.d
 
-sudo apt-get update
-
-# Install MS R Client
+## install MS R Client
 sudo apt-get install microsoft-r-client-packages-3.4.1
 ls /opt/microsoft/rclient/3.4.1/
 
-# Install MS ML Server
+## or install MS ML Server
 sudo apt-get install microsoft-mlserver-all-9.2.1
 /opt/microsoft/mlserver/9.2.1/bin/R/activate.sh
 
