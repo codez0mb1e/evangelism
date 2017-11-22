@@ -5,7 +5,7 @@ sudo apt-get dist-upgrade  # Installs updates (new ones)
 
 
 
-## Install MS R Open  ----
+### Install MS R Open  ----
 wget https://mran.blob.core.windows.net/install/mro/3.4.2/microsoft-r-open-3.4.2.tar.gz
 
 tar -xf microsoft-r-open-3.4.2.tar.gz
@@ -13,7 +13,7 @@ cd microsoft-r-open/
 sudo ./install.sh
 
 
-
+# -- or
 ### Install MS R Client and/or MS ML Server  ----
 wget http://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb 
 sudo dpkg -i packages-microsoft-prod.deb
@@ -23,7 +23,8 @@ ls -la /etc/apt/sources.list.d
 sudo apt-get install microsoft-r-client-packages-3.4.1
 ls /opt/microsoft/rclient/3.4.1/
 
-## or install MS ML Server
+# -- or
+## install MS ML Server
 sudo apt-get install microsoft-mlserver-all-9.2.1
 /opt/microsoft/mlserver/9.2.1/bin/R/activate.sh
 
@@ -71,3 +72,31 @@ cd  /home/<user>/apps
 git clone ssh://<VSTS_account_name>@vs-ssh.visualstudio.com:22/DefaultCollection/_ssh/<project_name> # clone repository
 
 
+
+## Install LightGBM
+# see also: https://lightgbm.readthedocs.io/en/latest/Installation-Guide.html#linux
+sudo apt install cmake
+sudo apt-get install glibc-source
+
+cd apps
+git clone --recursive https://github.com/Microsoft/LightGBM
+
+cd LightGBM
+mkdir build ; cd build
+cmake ..
+make -j4
+
+# install as R package
+# see also: https://github.com/Microsoft/LightGBM/tree/master/R-package
+cd ../R-package
+Rscript build_package.R
+sudo R CMD INSTALL lightgbm_2.0.10.tar.gz --no-multiarch
+
+R
+# execute script below in R
+> install.packages(c("curl", "httr", "R6"))
+> # restart R session
+> 
+> library(devtools)
+> options(devtools.install.args = "--no-multiarch") # if you have 64-bit R only, you can skip this
+> install_github("Microsoft/LightGBM", subdir = "R-package")
