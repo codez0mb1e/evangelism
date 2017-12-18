@@ -7,6 +7,7 @@ if (!require("microbenchmark")) install.packages("microbenchmark")
 
 
 
+### Load data ----
 ## Prepare 
 library(dplyr)
 library(lubridate)
@@ -18,7 +19,6 @@ symbol <- "BITSTAMP/USD"
 
 
 ## load financial data
-# library(RCurl); library(httr); set_config(config(ssl_verifypeer = 0L)) # note: if SSL cert verification failed
 quote <- Quandl(symbol) %>% arrange(Date)
 
 # investigate data
@@ -27,6 +27,9 @@ tsdisplay(quote$Last)
 tsdisplay(diff(quote$Last, lag = 1))
 tsdisplay(diff(log(quote$Last), lag = 7))
 
+
+
+### Predict ----
 
 #' Get forecast 
 #'
