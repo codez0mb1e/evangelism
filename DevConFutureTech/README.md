@@ -3,19 +3,19 @@
 Developers environment:
 1. Data Science Virtual Machine (Azure Marketplace);
 2. Visual Studio 2017 with installed Data science and analytics tools (Azure VM):
-* R/Python project templates;
-* Intellisence;
-* Interactive console;
-* R-packages, including MicrosoftML, AzureML, AzureSMR.
+  * R/Python project templates;
+  * Intellisence;
+  * Interactive console;
+  * R-packages, including MicrosoftML, AzureML, AzureSMR.
 3. Azure Machine Learning:
-* Jupiter Notebook
+  * Jupiter Notebook
 
 ## Part II: *Microsoft R Server + Apache Spark* in Microsoft Azure.
 1. Azure HDInsight:
 2. Microsoft R Server:
-* MicrosoftML packege;
-* ScaleR;
-* DeployR.
+  * MicrosoftML packege;
+  * ScaleR;
+  * DeployR.
 
 ### Requirements
 - [Visual Studio Community 2017](https://www.visualstudio.com/downloads/) with installed Data science and analytics tools;
