@@ -23,23 +23,22 @@
 В конце лекции проведем практикум по обучению нейронной сети, использую популярный DL-фреймворк и одну из облачных платформ. 
 
 Материалы:
-* [Демо](/samples/)
+* [Демо](samples/)
 * [Презентация](http://0xcode.in/deep-learning-intro)
 
 ## Requirements
 1. Современный веб-браузер;
 2. Microsoft Account;
 3. Microsoft Azure Account 
-  - бесплатно: [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/)
-  - [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)
-
-## How to?
+3.1. бесплатно: [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/)
+3.2. [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)
+4. RStudio или Visual Studio 2017 (c Data Science Tools).
 
 
 ## References
-Azure.com/AI http://www.azure.com/ai
-Microsoft AI School https://aischool.microsoft.com/learning-paths
-Cortana Intelligence and Machine Learning Blog https://blogs.technet.microsoft.com/machinelearning/
-Machine Learning Algorithm Cheat Sheet https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet
-Machine Learning Hackathon. How to win? http://www.codeinstinct.pro/2015/11/azure-ml-hackathon.html
+# AI в Azure
+1. Azure.com/AI http://www.azure.com/ai
+2. Microsoft AI School https://aischool.microsoft.com/learning-paths
+3. Cortana Intelligence and Machine Learning Blog https://blogs.technet.microsoft.com/machinelearning/
+4. Machine Learning Algorithm Cheat Sheet https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet
 
