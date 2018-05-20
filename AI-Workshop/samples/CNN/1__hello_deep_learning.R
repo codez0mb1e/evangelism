@@ -1,9 +1,12 @@
 
 #' 
-#' Train a convolution network on the MNIST dataset.
+#' Train a convolution network on the MNIST dataset using
+#' Keras (Tensorflow backend) and GPU
 #' 
-#' See also: https://tensorflow.rstudio.com/keras/articles/examples/index.html
+#' References:
+#'   * https://tensorflow.rstudio.com/keras/articles/examples/index.html
 #' 
+
 
 library(keras)
 install_keras(tensorflow = "gpu")
@@ -13,7 +16,7 @@ install_keras(tensorflow = "gpu")
 # 1. Load an preprocessing data ----
 mnist <- dataset_mnist()
 
-# split datset
+# split dataset
 reshapeArray <- function(dt) {
   img_resolution <- c(28, 28)
   names(img_resolution) <- c("width", "height")
@@ -77,8 +80,9 @@ model %>% fit(
   validation_split = .2
 )
 
-# and see what's happening...
-# ~$ htop & watch -n 0.5 nvidia-smi
+# Look what's going on:
+#    $ htop
+#    $ watch -n 0.5 nvidia-smi
 
 
 
