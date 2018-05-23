@@ -12,6 +12,7 @@
 #### Материалы:
 * [Презентация](http://0xcode.in/machine-learning-intro).
 
+
 ### Neural Network
 Во второй части интенсива подробнее остановимся на нейросетевых алгоритмах, в том числе глубоких нейросетях (_deep learning, DL_). 
 Рассмотрим:
@@ -34,7 +35,7 @@
 
 ## References
 #### AI в Azure
-1. [Azure.com/AI](http://www.azure.com/ai)
+1. [Azure.com/AI](https://www.azure.com/ai)
 2. [Microsoft AI School](https://aischool.microsoft.com/learning-paths)
 3. [Cortana Intelligence and ML Blog](https://blogs.technet.microsoft.com/machinelearning/)
 4. [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet)
