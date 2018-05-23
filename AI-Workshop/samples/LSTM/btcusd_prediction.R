@@ -5,26 +5,29 @@
 #' 
 
 
-# 0. Import Dependecies ----
+### 0. Import Dependecies ----
 suppressPackageStartupMessages({
+  # DL framework
   library(keras)
-  install_keras(tensorflow = "gpu") # if nessary
+  # if nessary: install_keras(tensorflow = "gpu")
+  # data processing 
   library(dplyr)
   library(tidyr)
+  library(purrr)
+  # vizualize
   library(ggplot2)
 })
-source("prediction_funs.R")
+source("LSTM/prediction_funs.R")
 
 
 
-# 1. Set parameters ----
-epochs <- 20
-timeStemps <- 24
-predictingPeriod <- timeStemps * 60
+### 1. Set parameters ----
+epochsN <- 20
+timeStemps <- 10
+predictingPeriod <- timeStemps * 4e2
 
 
-
-# 2. Load and preprocessing data ----
+### 2. Load and preprocessing data ----
 data <- getBtc1H()
 
 ts.plot(data$Close)
@@ -32,14 +35,14 @@ ts.plot(data$LogReturn)
 
 
 mData <- data$LogReturn %>% 
-  as.vector %>% 
+  as_vector %>% 
   get2DTensor(., timeStemps)
 
 sprintf("Working in the Matrix: %s", paste(dim(mData), collapse = ", "))
 
 
 
-# 3. Split on train/test datasets ----
+### 3. Split on train/test datasets ----
 splitBy <- dim(mData)[1] - predictingPeriod
 
 x.train <- get3DTensor(mData[1:splitBy, ])
@@ -58,8 +61,9 @@ sprintf("Working in the 3D Matrix: %s", paste(dim(x.train), collapse = ", "))
 
 
 
-# 4. Define model  ----
-inputShape <- c(dim(x.train)[[2]], dim(x.train)[[3]]) # number of time steps and features
+### 4. Define model  ----
+inputShape <- c(dim(x.train)[[2]], # number of time steps
+                dim(x.train)[[3]]) # number of features
 
 model <- keras_model_sequential() %>% 
   layer_lstm(
@@ -88,11 +92,11 @@ summary(model)
 
 
 
-# 5. Train model  ----
+### 5. Train model  ----
 model %>% fit(
   x.train, y.train,
   batch_size = 32,
-  epochs = epochs,
+  epochs = epochsN,
   validation_data = list(x.test, y.test),
   verbose = 1
 )
@@ -103,11 +107,11 @@ model %>% fit(
 
 
 
-# 6. Score model  ----
+### 6. Score model  ----
 predict.test <- predict(model, x.test)
 
 
-# 7. Eval and visualize result ----
+### 7. Eval and visualize result ----
 results <- combineResultsX(y.test, predict.test[, 1])
 
 
@@ -115,9 +119,9 @@ ggplot(results %>% filter(Time > 17300) %>% gather(., "Model", "Price", Prev:Pre
   geom_line(aes(y = Price, color = Model)) +
   geom_line(aes(y = Close), color = "red", linetype = "dotted") +
   facet_grid(Model ~ .) +
-  labs(title = "BTC/USD Stock Price", subtitle = "#AzureDay", 
+  labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
        x = "Date", y = "Close Price", 
-       caption = "(c) 2018, Dmitry Petukhov [http://0xCode.in]") +
+       caption = "(c) 2018, Dmitry Petukhov [ http://0xCode.in ]") +
   theme_bw()
 
 
@@ -125,9 +129,9 @@ ggplot(results %>% filter(Time > 17300) %>% gather(., "Model", "Residuals", SMA_
   geom_line(aes(y = Residuals, color = Model)) +
   geom_line(aes(y = Prev_residuals), color = "red", linetype = "dashed") +
   facet_grid(Model ~ .) +
-  labs(title = "BTC/USD Stock Price", subtitle = "#AzureDay", 
+  labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
        x = "Date", y = "Close Price", 
-       caption = "(c) 2018, Dmitry Petukhov [http://0xCode.in]") +
+       caption = "(c) 2018, Dmitry Petukhov [ http://0xCode.in ]") +
   theme_bw()
 
 
@@ -142,7 +146,7 @@ View(
 )
 
 
-# 8. Human vs AI competition ----
+### 8. Human vs AI competition ----
 View(
   data.frame(
     Close = c(tail(results, 12)[1:10, ]$Close, "?", "?")

@@ -1,6 +1,6 @@
 
 #' 
-#' Train a convolution network on the MNIST dataset using
+#' Train a convolution network on the MNIST dataset using...
 #' Keras (Tensorflow backend) and GPU
 #' 
 #' References:
@@ -24,10 +24,10 @@ reshapeArray <- function(dt) {
   # redefine dimension of inputs
   r <- array_reshape(dt, c(nrow(dt), img_resolution[["width"]], img_resolution[["height"]], 1))
   
-  # transform RGB values into [0,1] range
-  r/255
+  r/255 # transform RGB values into [0,1] range
 }
 
+# prepare train and test datasets
 x_train <- reshapeArray(mnist$train$x)
 x_test <- reshapeArray(mnist$test$x)
 
@@ -39,12 +39,15 @@ y_test <- mnist$test$y
 # 2.1. Set training params ----
 batch_size <- 128
 num_classes <- 10
-epochs <- 12 # 99.25% test accuracy after 12 epochs
+epochsN <- 12 # 99.25% test accuracy after 12 epochs
 
-# ??onvert class vectors to binary class matrices
+# convert class vectors to binary class matrices
 y_train <- to_categorical(y_train, num_classes)
 y_test <- to_categorical(y_test, num_classes)
-input_shape <- c(dim(x_train)[2], dim(x_train)[3], dim(x_train)[4])
+
+input_shape <- c(dim(x_train)[2], 
+                 dim(x_train)[3],
+                 dim(x_train)[4])
 
 
 
@@ -76,7 +79,7 @@ summary(model)
 model %>% fit(
   x_train, y_train,
   batch_size = batch_size,
-  epochs = epochs,
+  epochs = epochsN,
   validation_split = .2
 )
 
@@ -88,9 +91,11 @@ model %>% fit(
 
 # 2.5. Evaluate model
 scores <- model %>% evaluate(
-  x_test, y_test, verbose = 0
+  x_test, y_test, verbose = 1
 )
 
 sprintf("Test loss: %s", scores[[1]])
 sprintf("Test accuracy: %s", scores[[2]])
+
+
 

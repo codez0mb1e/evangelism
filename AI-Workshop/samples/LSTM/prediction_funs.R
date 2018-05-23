@@ -1,5 +1,10 @@
 
 
+#' 
+#' Function for LSTM demos
+#' 
+
+
 ### Datasets funs ----
 
 #' 
@@ -92,6 +97,7 @@ getBtc1H <- function() {
 
 
 ### Tensor funs ----
+
 #' 
 #'
 get2DTensor <- function(v, .timeSteps, na.rm = T) {

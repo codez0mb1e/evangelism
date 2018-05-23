@@ -37,3 +37,5 @@ output <- map(files,
                 # evaluate
                 imagenet_decode_predictions(pred, top = 3)[[1]]
               })
+
+
