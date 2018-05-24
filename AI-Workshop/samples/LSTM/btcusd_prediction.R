@@ -117,9 +117,9 @@ predict.test <- predict(model, x.test)
 results <- combineResultsX(y.test, predict.test[, 1])
 
 
-ggplot(results %>% filter(Time > max(results$Time) - predictingPeriod) %>% gather(., "Model", "Price", Prev:Predict, factor_key = T), aes(x = Time)) +
+ggplot(results %>% filter(Time > max(results$Time) - 100) %>% gather(., "Model", "Price", Prev:Predict, factor_key = T), aes(x = Time)) +
+  geom_line(aes(y = Close), color = "red", alpha = .3) +
   geom_line(aes(y = Price, color = Model)) +
-  geom_line(aes(y = Close), color = "red") +
   facet_grid(Model ~ .) +
   labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
        x = "Date", y = "Close Price", 
@@ -128,8 +128,8 @@ ggplot(results %>% filter(Time > max(results$Time) - predictingPeriod) %>% gathe
 
 
 ggplot(results %>% filter(Time > max(results$Time) - predictingPeriod) %>% gather(., "Model", "Residuals", SMA_residuals:Predict_residuals, factor_key = T), aes(x = Time)) +
+  geom_line(aes(y = Prev_residuals), color = "red", alpha = .3) +
   geom_line(aes(y = Residuals, color = Model)) +
-  geom_line(aes(y = Prev_residuals), color = "red", linetype = "dashed") +
   facet_grid(Model ~ .) +
   labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
        x = "Date", y = "Close Price", 
@@ -151,7 +151,7 @@ View(
 ### 8. Human vs AI competition ----
 View(
   data.frame(
-    Close = c(tail(results, 12)[1:10, ]$Close, "?", "?")
+    Close = c(tail(results, 12)[1:10, ]$Close, rep("?", 2))
   )
 )
 
@@ -161,7 +161,7 @@ View(
     Predict = tail(results, 12)$Predict
   ) %>% 
   mutate(
-    PriceChangeOn = floor(c(NA,  diff(Close))),
+    PriceChangeOn = floor(c(NA_real_,  diff(Close))),
     NN_Prediction = floor(Close - Predict)
   ) 
 )
