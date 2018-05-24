@@ -17,18 +17,19 @@ suppressPackageStartupMessages({
   # vizualize
   library(ggplot2)
 })
+source("LSTM/cryptocurrency_funs.R")
 source("LSTM/prediction_funs.R")
 
 
 
 ### 1. Set parameters ----
-epochsN <- 20
-timeStemps <- 10
-predictingPeriod <- timeStemps * 4e2
+epochsN <- 20L
+timeStemps <- 48L # 2 days
+predictingPeriod <- timeStemps * 30 # 2 months
 
 
 ### 2. Load and preprocessing data ----
-data <- getBtc1H()
+data <- loadTrades("BTCUSD", .from = Sys.time() - years(3), .to = Sys.time(), .period = to.hourly) # readRDS("data/trades.rds")
 
 ts.plot(data$Close)
 ts.plot(data$LogReturn)
@@ -64,6 +65,7 @@ sprintf("Working in the 3D Matrix: %s", paste(dim(x.train), collapse = ", "))
 ### 4. Define model  ----
 inputShape <- c(dim(x.train)[[2]], # number of time steps
                 dim(x.train)[[3]]) # number of features
+
 
 model <- keras_model_sequential() %>% 
   layer_lstm(
@@ -115,9 +117,9 @@ predict.test <- predict(model, x.test)
 results <- combineResultsX(y.test, predict.test[, 1])
 
 
-ggplot(results %>% filter(Time > 17300) %>% gather(., "Model", "Price", Prev:Predict, factor_key = T), aes(x = Time)) +
+ggplot(results %>% filter(Time > max(results$Time) - predictingPeriod) %>% gather(., "Model", "Price", Prev:Predict, factor_key = T), aes(x = Time)) +
   geom_line(aes(y = Price, color = Model)) +
-  geom_line(aes(y = Close), color = "red", linetype = "dotted") +
+  geom_line(aes(y = Close), color = "red") +
   facet_grid(Model ~ .) +
   labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
        x = "Date", y = "Close Price", 
@@ -125,7 +127,7 @@ ggplot(results %>% filter(Time > 17300) %>% gather(., "Model", "Price", Prev:Pre
   theme_bw()
 
 
-ggplot(results %>% filter(Time > 17300) %>% gather(., "Model", "Residuals", SMA_residuals:Predict_residuals, factor_key = T), aes(x = Time)) +
+ggplot(results %>% filter(Time > max(results$Time) - predictingPeriod) %>% gather(., "Model", "Residuals", SMA_residuals:Predict_residuals, factor_key = T), aes(x = Time)) +
   geom_line(aes(y = Residuals, color = Model)) +
   geom_line(aes(y = Prev_residuals), color = "red", linetype = "dashed") +
   facet_grid(Model ~ .) +
@@ -159,11 +161,9 @@ View(
     Predict = tail(results, 12)$Predict
   ) %>% 
   mutate(
-    #Diff = c(NA,  diff(Close)),
-    Residuals = Close - Predict
+    PriceChangeOn = floor(c(NA,  diff(Close))),
+    NN_Prediction = floor(Close - Predict)
   ) 
 )
-
-
 
 

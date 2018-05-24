@@ -35,51 +35,22 @@ getWaves <- function(.length = 10e3) {
 }
 
 
-#' 
-#'
-#'
-getBtcTrades <- function() {
-  require(zoo)
-  require(xts)
-  require(dplyr)
-  
-  trades <- readRDS("data/btcusd.trades.rds")
-  
-  dt <- to.hourly(trades$KRAKEN["2016-04/"]) %>% 
-    as.data.frame %>% 
-    rename(Close = `trades$KRAKEN[\"2016-04/\"].Close`) %>% 
-    transmute(
-      Close,
-      Diff = c(NA_real_, diff(Close)),
-      Lag = lag(Close),
-      Return = Diff/Lag,
-      LogReturn = c(NA_real_, diff(log(Close)))
-    ) %>% 
-    filter(
-      !is.na(LogReturn)
-    ) %>% 
-    mutate(
-      Id = row_number()
-    )
-  
- 
-  dt
-}
-
 
 #' 
 #'
-getBtc1H <- function() {
+#' @param symbol 
+#' @param .from 
+#' @param .to 
+#' @param .period 
+#' 
+loadTrades <- function(symbol, .from, .to, .period) {
   require(zoo)
   require(xts)
   require(dplyr)
   require(lubridate)
   
-  trades <- readRDS("data/btcusd.rds") %>% 
-    filter(Time > Sys.Date() - years(2))
-  
-  as.xts(trades[, -1], order.by = trades[, 1]) %>% 
-    to.hourly %>% 
+  cryptocurrency.loadTrades("kraken", symbol, .from, .to) %>% 
+    .period(., names = "") %>% 
     as.data.frame %>% 
     transmute(
       Close = `..Close`,
@@ -167,38 +138,6 @@ combineResults <- function(actual, predicted) {
 }
 
 
-#' 
-#'
-getScoredResult <- function() {
-  require(data.table)
-  require(dplyr)
-  require(tidyr)
-  require(purrr)
-  require(lubridate)
-  require(TTR)
-  
-  dt.files <- paste0("http://static.0xcode.in/data/btcusd/", c("BDT.csv", "LR.csv", "NN.csv"))
-  
-  dt.files %>% 
-    map(~ fread(.x) %>% transmute(Score = `Scored Labels`)) %>% 
-    flatten %>% 
-    as.data.frame %>% 
-    cbind(fread(dt.files[[1]]) %>% select(Close, Time)) %>% 
-    transmute(
-      BDT = Score, LR = `Score.1`, NN = `Score.2`, 
-      SMA = SMA(Close, n = 6), 
-      EMA = EMA(Close, n = 6), 
-      Prev = lag(Close), 
-      Close,
-      Time = mdy_hms(Time)
-    ) %>% 
-    mutate_if(
-      is.numeric, funs("diff" = . - Close)
-    ) %>% 
-    select(-Close_diff) %>% 
-    filter(!is.na(EMA))
-}
-
 
 #' 
 #'
@@ -224,6 +163,7 @@ combineResultsX <- function(actual, predicted) {
       data %>% mutate(Id = Id - timeStemps + 1), by = "Id"
     ) %>% 
     transmute(
+      Time = Id,
       Close,
       # naive (baseline)
       Prev = lag(Close),
@@ -231,9 +171,7 @@ combineResultsX <- function(actual, predicted) {
       SMA = SMA(Close, n = 3), 
       EMA = EMA(Close, n = 6),
       # Predicted
-      Predict = Predicted * Lag + Prev,
-      # Time
-      Time = Id # todo
+      Predict = Predicted * Lag + Prev
     ) %>% 
     mutate_if(
       is.numeric, funs("residuals" = . - Close)
