@@ -25,8 +25,13 @@ Collection of generative models, e.g. GAN, VAE.
   20. [GibbsNet](https://papers.nips.cc/paper/7094-gibbsnet-iterative-adversarial-inference-for-deep-graphical-models.pdf)
 
 ### Variational Autoencoder (VAE)
-  1. [Vanilla VAE](https://arxiv.org/abs/1312.6114)
+  1. [Variational Bayes (Vanilla) VAE](https://arxiv.org/abs/1312.6114)
   2. [Conditional VAE](https://arxiv.org/abs/1406.5298)
   3. [Denoising VAE](https://arxiv.org/abs/1511.06406)
   4. [Adversarial Autoencoder](https://arxiv.org/abs/1511.05644)
   5. [Adversarial Variational Bayes](https://arxiv.org/abs/1701.04722)
+
+## References
+1. [Deep Learning Book: Autoencoders](https://www.deeplearningbook.org/contents/autoencoders.html) #R #book
+2. [wiseodd/generative-models repo](https://github.com/wiseodd/generative-models/blob/master/README.md) #python #demos
+3. [rstudio/keras](https://github.com/rstudio/keras/tree/master/vignettes/examples) #R #demos
