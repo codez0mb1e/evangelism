@@ -1,5 +1,5 @@
 # Microsoft DevCon: Future Technologies
-## Part I: *R* in Microsoft Azure
+## Part I: R in Microsoft Azure
 Developers environment:
 1. Data Science Virtual Machine (Azure Marketplace);
 2. Visual Studio 2017 with installed Data science and analytics tools (Azure VM):
@@ -10,10 +10,10 @@ Developers environment:
 3. Azure Machine Learning:
   * Jupiter Notebook
 
-## Part II: *Microsoft R Server + Apache Spark* in Microsoft Azure.
+## Part II: Microsoft R Server + Apache Spark in Microsoft Azure.
 1. Azure HDInsight:
 2. Microsoft R Server:
-  * MicrosoftML packege;
+  * MicrosoftML package;
   * ScaleR;
   * DeployR.
 
