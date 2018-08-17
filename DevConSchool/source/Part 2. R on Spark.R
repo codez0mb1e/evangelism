@@ -1,23 +1,16 @@
-### set dependecies
-if(!require("ggplot2")) install.packages("ggplot2")
-if(!require("data.table")) install.packages("data.table")
 
-
-### set context
+### Set distributed (Spark) context ----
 context <- RxSpark(consoleOutput = T)
-#context <- rxSetComputeContext("localpar")
-#context <- RxHadoopMR()
-
 rxSetComputeContext(context)
 
 
-### read data set
+### Read dataset ----
 # from internet
 library(data.table)
 trans.raw <- fread("https://contest.sdsj.ru/upload/transactions.csv", stringsAsFactors = F, header = T)
 rm(trans.raw)
 
-# from HDFS 
+# or from HDFS (if exists)
 nameNode <- "wasbs://<container_name>@<storage_account>.blob.core.windows.net" # replace storage account and container name with appropriate values
 
 dataDirRoot <- "/data/devcon"
@@ -26,11 +19,10 @@ dataTempDir <- paste0(dataDirRoot, "/temp")
 
 rxHadoopListFiles(dataDirRoot)
 
-
 hdfsFS <- RxHdfsFileSystem(hostName = nameNode, port = 0)
 
 
-# trans data set
+# read transactions dataset
 trans.path <- file.path(dataDirRoot, "transactions.csv")
 colInfo <- list(
   customer_id = list(type = "factor"),
@@ -43,37 +35,30 @@ colInfo <- list(
 trans.raw <- RxTextData(file = trans.path, 
                         stringsAsFactors = F,
                         missingValueString = "", 
-                        rowsPerRead = 500000,
+                        rowsPerRead = 5e5,
                         colInfo = colInfo, 
                         fileSystem = hdfsFS)
 
 rxGetInfo(trans.raw, getVarInfo = TRUE, numRows = 5)
 
 
-# customes data set
+# read customers dataset
 customers.path <- file.path(dataDirRoot, "customers_gender_train.csv")
 customers.raw <- RxTextData(customers.path, fileSystem = hdfsFS)
 
 rxGetInfo(customers.raw, getVarInfo = TRUE, numRows = 5)
 
 
-# merge datasets
-#! command will be failed: there is no distributed merge
+# join datasets
 trans.data <- RxXdfData(dataTempDir, fileSystem = hdfsFS)
+#! there is no distributed merge (yet) - use already merged data instead
 rxMerge(trans.raw, 
         customers.raw, 
         outFile = trans.data,
         type = "inner",
         overwrite = T)
 
-rxGetVarInfo(trans.data)
-
-
-# remove old datasets
-rm(trans.raw)
-rm(customers.raw)
-
-# read ready
+# read already joined dataset
 trans.path <- file.path(dataDirRoot, "trans_with_customers-2.csv")
 colInfo <- list(
   customer_id = list(type = "factor"),
@@ -87,21 +72,18 @@ colInfo <- list(
 trans.raw <- RxTextData(file = trans.path, 
                         stringsAsFactors = F,
                         missingValueString = "", 
-                        rowsPerRead = 500000,
+                        rowsPerRead = 5e5,
                         colInfo = colInfo, 
                         fileSystem = hdfsFS)
 
 rxGetInfo(trans.raw, getVarInfo = T, numRows = 5)
 
 
+### Data preprocessing ----
 
-### insight data
 rxSummary(formula = ~ amount:F(week_day), data = trans.raw)
-
-
 trans.stats.byMcc <- rxCrossTabs(amount ~ F(customer_id):F(mcc_code), trans.raw, means = T)
 
-### fiter data
 trans.xdf <- RxXdfData(dataTempDir, fileSystem = hdfsFS)
 
 rxDataStep(inData = trans.raw, 
@@ -116,9 +98,10 @@ rxDataStep(inData = trans.raw,
 rxHistogram(~ amount_log | F(week_day), trans.xdf)
 
 
-### train model
+### Train model ----
 trans.subsets <- RxXdfData(dataTempDir, fileSystem = hdfsFS)
-# command will be failed: there is no distributed version of split 
+
+#! there is no distributed version of split (yet) - use next command (rxDataStep) instead
 rxSplit(inData = trans.xdf,
         outFilesBase = trans.subsets,
         splitByFactor = "subset_type",
@@ -127,7 +110,6 @@ rxSplit(inData = trans.xdf,
                                levels = 0:1, labels = c("Test", "Train"))
         )
 )
-
 
 rxDataStep(inData = trans.raw, 
            outFile = trans.subsets,
@@ -138,14 +120,14 @@ rxDataStep(inData = trans.raw,
            overwrite = T)
 
 
-# logistic regression
+## logistic regression
 formula <- gender ~ mcc_code + tr_type + amount
 
 lrModule <- rxLogit(formula = formula, data = trans.subsets, rowSelection = (subset_type == "Train"))
 summary(lrModule)
 
 
-# decision tree
+## decision tree
 regTreeOut <- rxDTree(formula,
                       trans.subsets, 
                       rowSelection = (subset_type == "Train"),
@@ -153,7 +135,7 @@ regTreeOut <- rxDTree(formula,
 print(regTreeOut)
 
 
-# predict values
+### Predict and eval result ----
 data.test <- RxXdfData(file = file.path(dataTempDir, "testdata"), fileSystem = hdfsFS)
 rxDataStep(inData = trans.subsets,
            outFile = data.test,
@@ -172,6 +154,7 @@ rxGetVarInfo(trans.predicted)
 
 # visualize ROC curve
 rxSetComputeContext("local") # switch context
+
 rxRocCurve(actualVarName = "gender",
            predVarNames = "gender_pred",
            data = trans.predicted)
