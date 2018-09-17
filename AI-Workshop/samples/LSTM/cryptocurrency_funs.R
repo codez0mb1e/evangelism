@@ -1,7 +1,4 @@
 
-#'
-#' Source: https://github.com/codez0mb1e/Minotaur/blob/master/source/Persephone/cryptocurrency.functions.R
-#'
 
 #' Load Bitcoin/Currency pair trades
 #'

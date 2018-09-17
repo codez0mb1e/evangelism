@@ -1,7 +1,6 @@
 
 #' 
-#' Waves prediction using
-#' Keras (Tensorflow backend) and GPU
+#' Waves prediction using Keras (Tensorflow backend) and GPU
 #' 
 
 
@@ -17,19 +16,20 @@ suppressPackageStartupMessages({
   # vizualize
   library(ggplot2)
 })
+
 source("LSTM/prediction_funs.R")
 
 
 
 ### 1. Set parameters ----
-epochsN <- 20
+epochsN <- 6
 timeStemps <- 10
 predictingPeriod <- timeStemps * 4e2
 
 
 
 ### 2. Load and preprocessing data ----
-data <- getWaves(1e4) # or getWaves(1e4)
+data <- getWave(1e4) # or: getWaves(1e4)
 ts.plot(data)
 
 
@@ -107,8 +107,8 @@ model %>% fit(
 )
 
 # Look what's going on:
-#    $ htop
-#    $ watch -n 0.5 nvidia-smi
+#! htop
+#! watch -n 0.5 nvidia-smi
 
 
 ### 6. Score model  ----
@@ -121,9 +121,7 @@ results <- combineResults(y.test, predict.test[, 1])
 
 ggplot(results, aes(x = Id, y = Value, color = Type)) +
   geom_line() +
-  labs(title = "Waves Prediction", subtitle = "#DeepLearning + #Azure on #AzureDay", 
-       x = "X", y = "Y", 
-       caption = "(c) 2018, Dmitry Petukhov [ http://0xCode.in ]") +
+  labs(title = "Waves Prediction", x = "X", y = "Y") +
   theme_bw()
   
 

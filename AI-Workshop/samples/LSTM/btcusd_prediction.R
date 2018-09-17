@@ -1,7 +1,6 @@
 
 #' 
-#' BTC/USD prediction using
-#' Keras (Tensorflow backend) and GPU
+#' BTC/USD prediction using Keras (Tensorflow backend) and GPU
 #' 
 
 
@@ -14,22 +13,29 @@ suppressPackageStartupMessages({
   library(dplyr)
   library(tidyr)
   library(purrr)
+  library(lubridate)
+  library(xts)
   # vizualize
   library(ggplot2)
 })
+
 source("LSTM/cryptocurrency_funs.R")
 source("LSTM/prediction_funs.R")
 
 
 
 ### 1. Set parameters ----
-epochsN <- 20L
+epochsN <- 3L
 timeStemps <- 48L # 2 days
 predictingPeriod <- timeStemps * 30 # 2 months
 
 
+
 ### 2. Load and preprocessing data ----
-data <- loadTrades("BTCUSD", .from = Sys.time() - years(3), .to = Sys.time(), .period = to.hourly) # readRDS("data/trades.rds")
+data <- loadTrades("BTCUSD",
+                   .from = Sys.time() - years(3), 
+                   .to = Sys.time(), 
+                   .period = to.minutes10) # or read from cache: readRDS("AI-Workshop/data/trades.rds")
 
 ts.plot(data$Close)
 ts.plot(data$LogReturn)
@@ -98,19 +104,20 @@ summary(model)
 model %>% fit(
   x.train, y.train,
   batch_size = 32,
-  epochs = epochsN,
+  epochs = 1,
   validation_data = list(x.test, y.test),
   verbose = 1
 )
 
-# Look what's going on:
-#    $ htop
-#    $ watch -n 0.5 nvidia-smi
+# Look what's going on (print in terminal):
+#! htop
+#! watch -n 0.5 nvidia-smi
 
 
 
 ### 6. Score model  ----
 predict.test <- predict(model, x.test)
+
 
 
 ### 7. Eval and visualize result ----
@@ -121,9 +128,7 @@ ggplot(results %>% filter(Time > max(results$Time) - 100) %>% gather(., "Model",
   geom_line(aes(y = Close), color = "red", alpha = .3) +
   geom_line(aes(y = Price, color = Model)) +
   facet_grid(Model ~ .) +
-  labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
-       x = "Date", y = "Close Price", 
-       caption = "(c) 2018, Dmitry Petukhov [ http://0xCode.in ]") +
+  labs(title = "BTC/USD Stock Price", x = "Date", y = "Close Price") +
   theme_bw()
 
 
@@ -131,9 +136,7 @@ ggplot(results %>% filter(Time > max(results$Time) - predictingPeriod) %>% gathe
   geom_line(aes(y = Prev_residuals), color = "red", alpha = .3) +
   geom_line(aes(y = Residuals, color = Model)) +
   facet_grid(Model ~ .) +
-  labs(title = "BTC/USD Stock Price", subtitle = "#DeepLearning + #Azure on #AzureDay", 
-       x = "Date", y = "Close Price", 
-       caption = "(c) 2018, Dmitry Petukhov [ http://0xCode.in ]") +
+  labs(title = "BTC/USD Stock Price", x = "Date", y = "Close Price") +
   theme_bw()
 
 
@@ -146,6 +149,7 @@ View(
     ) %>% 
     arrange(TotalLoss)
 )
+
 
 
 ### 8. Human vs AI competition ----

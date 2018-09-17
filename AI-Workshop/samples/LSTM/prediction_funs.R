@@ -123,15 +123,20 @@ get3DTensor <- function(m) {
 #' 
 combineResults <- function(actual, predicted) {
   require(dplyr)
-  require(tidyr)
+  require(reshape2)
   stopifnot(
     is.vector(actual), is.vector(predicted),
     length(predicted) > 0, length(predicted) == length(actual)
   )
   
   
-  dt <- data.frame(Id = 1:length(actual), Predicted = predicted, Actual = actual) %>% 
-    gather(Id, Predicted:Actual)
+  dt <- data.frame(
+      Id = 1:length(actual), 
+      Predicted = predicted, 
+      Actual = actual
+    ) %>% 
+    melt(id.vars = "Id")
+  
   names(dt) <- c("Id", "Type", "Value")
   
   dt
