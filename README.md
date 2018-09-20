@@ -1,12 +1,14 @@
 # Evangelism
-The demos from my tech speakings.
+The demos source code from my tech speakings.
 
-#### Demos
+#### List of demos:
 - [AI Workshop](/AI-Workshop)
- `#machinelearning` `#deeplearning`
+ `#MachineLearning` `#DeepLearning`
 - [Data Geeks Meetup](/DataGeeksMeetup)
 `#NN` `#ARIMA` `#bitcoin`
-- [DevCon: Future Tech](/DevConFutureTech)
-`#Microsoft-ML-Server` `#finance`
-- [DevCon School](/DevConSchool) `#Microsoft-ML-Server` + `#ApacheSpark` `#finance`
-- [Global Azure Bootcamp](/TwitterCrawlerDemo) `#sentiment-analysis` `#Azure` `#twitter`
+- [DevCon: Future Tech](/DevConFutureTech) 
+`#Microsoft-ML-Server` `#FinTech`
+- [DevCon School](/DevConSchool) 
+`#Microsoft-ML-Server` `#ApacheSpark` `#FinTech`
+- [Global Azure Bootcamp](/TwitterCrawlerDemo) 
+`#SentimentAnalysis` `#Twitter` `#Azure` 
