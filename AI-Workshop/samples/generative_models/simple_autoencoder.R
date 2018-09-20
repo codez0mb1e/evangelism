@@ -17,7 +17,7 @@ original_dim <- 784L
 encoding_dim <- 2L # small number of encoding dimension only for visualization purposes
 latent_dim <- 784L
 
-n_epochs <- 10L
+n_epochs <- 100L
 
 
 
@@ -50,6 +50,8 @@ autoencoder %>%
   compile(optimizer = "adadelta", loss = "binary_crossentropy")
 
 
+summary(autoencoder)
+
 
 ### 2. Get data and fit model ----
 mnist <- dataset_mnist()
@@ -60,22 +62,27 @@ x_train <- x_train %>% apply(1, as.numeric) %>% t()
 x_test <- x_test %>% apply(1, as.numeric) %>% t()
 
 
-autoencoder %>% fit(x_train, x_train,
-                    epochs = n_epochs,
-                    batch_size = batch_size,
-                    shuffle = T,
-                    validation_data = list(x_test, x_test))
+history <- autoencoder %>% fit(
+  x_train, x_train,
+  epochs = n_epochs,
+  batch_size = batch_size,
+  shuffle = T,
+  validation_data = list(x_test, x_test),
+  callbacks = callback_early_stopping(monitor = "val_loss", patience = n_epochs/10),
+  verbose = 1)
 
 
 
 ### 3. Visualizations ----
 library(ggplot2)
+
 x_test_encoded <- predict(encoder, x_test, batch_size = batch_size)
 
 x_test_encoded %>%
   as_data_frame %>% 
   mutate(Class = factor(mnist$test$y)) %>%
   ggplot(aes(x = V1, y = V2, color = Class)) + 
-  geom_point(alpha = .75)
+  geom_point(alpha = .75) + 
+  theme_minimal()
 
 
