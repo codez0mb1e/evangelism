@@ -1,0 +1,522 @@
+---
+title: "Regression. Basics"
+output: html_notebook
+---
+
+## Terms
+Linear regression is used to predict the value of a continuous variable `Y` based on one or more input predictor variables `X`. 
+
+`X` -- _independent_ variables
+`Y` -- _dependent_ variable
+
+
+Mathematical equation can be generalised as follows:
+
+`Y = β1 + β2X + ϵ`
+
+where, `β1` is the intercept and `β2` is the slope, and `ϵ` is the error term, the part of `Y` the regression model is unable to explain.
+
+
+### Linear regression problems
+
+* Non-linearity of X-Y relationship
+* Outliers
+* Multicollinearity
+* Heteroscedasticity
+* Missing values
+* Need normalization
+
+### Regression types
+
+* Linear Regression
+* Polynomial Regression
+* Quantile Regression
+* Ridge Regression
+* Lasso Regression
+* ElasticNet Regression
+* Principal Component Regression
+* Partial Least Square Regression
+* Support Vector Regression
+* Ordinal Regression
+* Poisson Regression
+* Negative Binomial Regression
+* Quasi-Poisson Regression
+* Cox Regression
+
+
+## Exploratory Data Analysis
+```{r include = FALSE}
+suppressPackageStartupMessages({
+  library(MASS)
+  library(psych)
+  
+  library(dplyr)
+  library(purrr)
+  library(tidyr)
+  library(magrittr)
+  
+  library(corrplot)
+  library(ggplot2)
+})
+
+
+source("../core.R")
+```
+
+```{r}
+# View Boston dataset
+data(Boston)
+Boston %>% as_tibble
+```
+
+The dataset contains 13 different features and 1 label.
+
+__Features:__
+
+* CRIM - per capita crime rate by town
+* ZN - proportion of residential land zoned for lots over 25000 sq.ft.
+* INDUS - proportion of non-retail business acres per town
+* CHAS - Charles River dummy variable (1 if tract bounds river; 0 otherwise)
+* NOX - nitric oxides concentration (parts per 10 million)
+* RM - average number of rooms per dwelling
+* AGE - proportion of owner-occupied units built prior to 1940
+* DIS - weighted distances to five Boston employment centres
+* RAD - index of accessibility to radial highways
+* TAX - full-value property-tax rate per $10,000
+* PTRATIO - pupil-teacher ratio by town
+* B - 1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+* LSTAT - % lower status of the population
+
+__Label__
+
+* MEDV - Median value of owner-occupied homes in $1000's
+
+
+```{r}
+# View descriptive statistics for Boston dataset
+describe(Boston) %>% as_tibble
+
+# View arbitrary relation
+ggplot(Boston, aes(lstat, medv)) +
+  geom_point(alpha = .5) +
+  labs(title = "Boston Data", x = "% lower status of the population", y = "Median value of owner-occupied homes, $K") +
+  theme_bw()
+
+
+# Use pairs to see more relations
+pairs(~ medv + ptratio + black + dis + crim, data = Boston, main = "Boston Data")
+
+
+# Build correlation plot
+M <- Boston %>% as.matrix %>% cor
+
+corrplot(M, 
+         method = "color", type = "upper", order = "hclust", 
+         #addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", tl.srt = 45, # Text label color and rotation
+         diag = F # hide correlation coefficient on the principal diagonal
+  )
+
+rm(M)
+```
+
+
+## 0. Preparation
+We will split dataset on train and validation dataset for every experiment below.
+Let's store our spliting index:
+```{r}
+splitter <- getSplitter(Boston, .frac = .7)
+
+plotPrediction <- function(predict) {
+  dt <- data.frame(
+      Actual = df$Valid$Y, 
+      Predicted = predict
+    ) %>% 
+    arrange(Predicted) %>%
+    mutate(N = 1:nrow(.))
+  
+  ggplot(dt) +
+    geom_point(aes(N, Actual), alpha = .5, color = "blue") +
+    geom_line(aes(N, Predicted), color = "red") +
+    labs(x = "Observation #", y = "Medv") +
+    theme_bw()
+}
+```
+
+
+## 1. Linear Regression
+```{r}
+# get data
+df <- applySplitter(Boston, splitter)
+
+
+# train model
+model <- lm(medv ~ ., data = df$Train$X %>% bind_cols(medv = df$Train$Y))
+summary(model)
+
+
+# predict
+predict_lm <- predict(model, newdata = df$Valid$X)
+
+plotPrediction(predict_lm)
+
+
+# GC
+rm(df); rm(model)
+```
+
+
+## 2. Polynomial Regression
+```{r}
+# get  data
+df <- applySplitter(Boston, splitter)
+
+df$Train$X %<>%
+  mutate_if(is.double, funs("squared" = . ^ 2))
+
+df$Valid$X %<>%
+  mutate_if(is.double, funs("squared" = . ^ 2))
+
+
+# train model
+model <- lm(medv ~ ., data = df$Train$X %>% bind_cols(medv = df$Train$Y))
+summary(model)
+
+# or you use something like that
+model <- lm(medv ~ lstat + crim * rm + I(lstat ^ 2) + I(rm ^ 4), data = df$Train$X %>% bind_cols(medv = df$Train$Y))
+summary(model)
+
+
+# predict
+predict_polylm <- predict(model, newdata = df$Valid$X) %>% as_vector
+
+plotPrediction(predict_polylm)
+
+
+# GC
+rm(df); rm(model)
+```
+
+
+
+## 3. Quantile Regression
+```{r}
+# import lib
+library(quantreg)
+
+
+# get  data
+df <- applySplitter(Boston, splitter)
+train_data <- df$Train$X %>% bind_cols(medv = df$Train$Y)
+
+
+# train models
+model_Q1 <- rq(medv ~ ., data = train_data, tau = .25) 
+summary(model_Q1)
+
+model_median <- rq(medv ~ ., data = train_data, tau = .5)
+summary(model_median)
+
+model <- rq(medv ~ ., data = train_data, tau = c(.05, .25, .5, .75, .95))
+summary(model)
+
+
+# predict 
+predict_quantreg <- predict(model, newdata = df$Valid$X)
+predict_quantreg %>% as_tibble
+
+# get prediction with minimal MAE
+MAEs <- predict_quantreg %>% 
+  as.data.frame %>% 
+  mutate(Actual = df$Valid$Y) %>% 
+  mutate_all(funs(abs(. - Actual))) %>% 
+  select(-Actual) %>% 
+  colSums(.)/length(df$Valid$Y)
+print(MAEs)
+
+predict_quantreg <- predict_quantreg[, which.min(MAEs)]
+
+plotPrediction(predict_quantreg)
+
+
+# GC
+rm(df); rm(train_data); rm(MAEs)
+rm(model_Q1); rm(model_median); rm(model)
+```
+
+
+
+## 4. Lasso Regression 
+*Least Absolute Shrinkage and Selection Operator, LASSO* makes use of *L1 regularization*.
+
+***
+#### Regularization
+Regularization adding a penalty term to the objective function and control the model complexity using that penalty term.
+
+Regularization is generally useful in the following situations:
+
+- Large number of variables;
+- Low ratio of number observations to number of variables;
+- High Multi-Collinearity.
+
+
+In **L1 regularization** we try to minimize the objective function by adding a penalty term to the sum of the absolute values of coefficients.
+
+In **L2 regularization** we try to minimize the objective function by adding a penalty term to the sum of the squares of coefficients.
+
+***
+
+```{r}
+# import lib
+library(glmnet)
+
+
+# get  data
+df <- applySplitter(Boston, splitter)
+
+
+# train model
+model <- cv.glmnet(df$Train$X %>% as.matrix,
+                   df$Train$Y, 
+                   alpha = 1, lambda = 10 ^ seq(1, -1, by = -.1))
+model$lambda.min
+
+
+# predict 
+predict_lasso <- predict(model,
+                         newx = df$Valid$X %>% as.matrix,
+                         s = model$lambda.min,
+                         type = "response")[, 1] %>% as_vector
+
+plotPrediction(predict_lasso)
+
+
+# GC
+rm(df); rm(model)
+```
+
+
+
+## 5. Ridge Regression
+Ridge Regression makes use of *L2 regularization*.
+```{r}
+# import lib
+library(glmnet)
+
+
+# get  data
+df <- applySplitter(Boston, splitter)
+
+
+# train model
+model <- cv.glmnet(df$Train$X %>% as.matrix, 
+                   df$Train$Y, 
+                   alpha = 0, lambda = 10 ^ seq(1, -1, by = -.1))
+model$lambda.min
+
+
+# predict 
+predict_ridge <- predict(model,
+                         newx = df$Valid$X %>% as.matrix,
+                         s = model$lambda.min, 
+                         type = "response")[, 1] %>% as_vector
+
+plotPrediction(predict_ridge)
+
+
+# GC
+rm(df); rm(model)
+```
+
+
+## 6. Elastic Net Regression 
+Elastic Net Regression is a combination of both *L1 and L2 regularization*.
+It is dealing with highly correlated independent variables.
+
+```{r}
+# import lib
+library(glmnet)
+
+
+# get  data
+df <- applySplitter(Boston, splitter)
+
+
+# train model
+model <- cv.glmnet(df$Train$X %>% as.matrix, 
+                   df$Train$Y, 
+                   alpha = .5, lambda = 10 ^ seq(1, -1, by = -.1))
+model$lambda.min
+
+
+# predict 
+predict_enr <- predict(model, 
+                         newx = df$Valid$X %>% as.matrix,
+                         s = model$lambda.min, 
+                         type = "response")[, 1] %>% as_vector
+
+plotPrediction(predict_enr)
+
+
+# GC
+rm(df); rm(model)
+```
+
+
+## Gradient Boosted Trees for Regression 
+```{r}
+# import lib
+library(lightgbm)
+
+
+# get  data
+df <- applySplitter(Boston, splitter)
+
+dTrain <- lgb.Dataset(df$Train$X %>% as.matrix, label = df$Train$Y) 
+dValid <- lgb.Dataset(df$Valid$X %>% as.matrix, label = df$Valid$Y) 
+
+
+# train model
+params <- list(learning_rate = .01,
+               min_data = 1,
+               boosting_type = "gbdt",
+               objective = "regression",
+               metric = "mae")
+
+n_rounds <- 1e3L
+model <- lgb.train(params, 
+                   dTrain,
+                   valids = list(Valid = dValid), 
+                   nrounds = n_rounds,
+                   early_stopping_rounds = n_rounds/10,
+                   verbose = 0)
+
+
+# predict 
+predict_gbt <- predict(model, data = df$Valid$X %>% as.matrix)
+
+plotPrediction(predict_gbt)
+
+
+# GC
+rm(df); rm(dTrain); rm(dValid)
+rm(model); rm(params); rm(n_rounds)
+```
+
+
+
+## Neural Networks for Regression
+```{r}
+# import lib
+library(keras)
+
+
+# get data
+df <- applySplitter(Boston, splitter) 
+
+
+## Normalize features
+# NOTE: validation dataset *cannot* used when calculating mean and SD
+
+# normalize train dataset
+df$Train$X <- scale(df$Train$X, center = T, scale = T)
+df$Train$X %>% as_tibble
+
+
+# use means and SDs from training set to normalize validation dataset
+means_train <- attr(df$Train$X, "scaled:center")
+sd_train <- attr(df$Train$X, "scaled:scale")
+
+df$Valid$X <- scale(df$Valid$X, center = means_train, scale = sd_train)
+df$Valid$X %>% as_tibble
+
+
+# build deep FFNN model 
+model <- keras_model_sequential() %>%
+  layer_dense(
+    input_shape = dim(df$Train$X)[2],
+    units = 64, 
+    activation = "relu"
+  ) %>%
+  layer_dense(
+    units = 64,
+    activation = "relu"
+  ) %>%
+  layer_dense(
+    units = 64,
+    activation = "relu"
+  ) %>%
+  layer_dense(units = 1)
+
+
+model %>% compile(
+  loss = "mse",
+  optimizer = optimizer_rmsprop(),
+  metrics = list("mean_absolute_error")
+)
+
+summary(model)
+
+
+n_epochs <- 100L
+
+history <- model %>% fit(
+  df$Train$X, df$Train$Y,
+  epochs = n_epochs,
+  batch_size = 32L,
+  validation_data = list(df$Valid$X, df$Valid$Y),
+  callbacks = callback_early_stopping(monitor = "val_loss", patience = 20L),
+  verbose = 0
+)
+
+# Look what's going on (print in terminal):
+#! htop
+#! watch -n 0.5 nvidia-smi
+
+
+# predict
+predict_nn <- model %>% predict(df$Valid$X)
+predict_nn <- predict_nn[, 1]
+
+plotPrediction(predict_nn)
+
+
+# GC
+rm(df); rm(means_train); rm(sd_train)
+rm(model); rm(history); rm(n_epochs)
+```
+
+
+## Compare models
+
+```{r}
+df <- applySplitter(Boston, splitter)
+
+data.plot <- data_frame(
+    Actual = df$Valid$Y,
+    LM = predict_lm,
+    PolyLM = predict_polylm,
+    Lasso = predict_lasso,
+    Ridge = predict_ridge,
+    QuantReg = predict_quantreg,
+    ENR = predict_enr,
+    GBT = predict_gbt,
+    NN = predict_nn
+  ) %>% 
+  arrange(Actual) %>% 
+  mutate(N = 1:nrow(.)) %>% 
+  gather("Model", "Value", -N)
+
+
+ggplot(data.plot, aes(x = N, y = Value, color = Model)) +
+  geom_line() +
+  labs(x = "Observation #", y = "Medv") +
+  theme_bw()
+```
+
+## References
+1. https://www.listendata.com/2018/03/regression-analysis.html
+2. https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/
+
+
+
