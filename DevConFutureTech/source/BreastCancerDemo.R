@@ -2,15 +2,19 @@ library(mlbench)
 library(caret)
 library(dplyr)
 
-# load and preproccesing data
+library(MicrosoftML)
+
+
+
+# Load and preproccesing data
 data(BreastCancer)
 View(BreastCancer)
 
 dt <- BreastCancer %>%
-    mutate(
-        Label = ifelse(Class == "benign", 0, 1)
-        ) %>%
-    select(-c(Id, Class))
+  mutate(
+    Label = ifelse(Class == "benign", 0, 1)
+  ) %>%
+  select(-c(Id, Class))
 
 
 dt.train.IDs <- createDataPartition(y = dt$Label, p = .8, list = FALSE)
@@ -18,9 +22,7 @@ dt.train <- dt[dt.train.IDs, ]
 dt.test <- dt[-dt.train.IDs,]
 
 
-# train and score models
-library(MicrosoftML)
-
+# Train and score models
 model.LR <- rxLogisticRegression(formula = Label ~ ., data = dt.train, type = "binary")
 model.FT <- rxFastTrees(formula = Label ~ ., data = dt.train, type = "binary")
 model.NN <- rxNeuralNet(formula = Label ~ ., data = dt.train, type = "binary")
@@ -33,3 +35,5 @@ auc <- rxAuc(roc)
 
 auc
 plot(roc)
+
+

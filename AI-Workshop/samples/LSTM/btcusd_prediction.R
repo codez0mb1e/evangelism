@@ -104,7 +104,7 @@ summary(model)
 model %>% fit(
   x.train, y.train,
   batch_size = 32,
-  epochs = 1,
+  epochs = epochsN,
   validation_data = list(x.test, y.test),
   verbose = 1
 )
