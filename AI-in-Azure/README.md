@@ -39,8 +39,8 @@ ___Интесив по машинному обучению в облаке Micro
 
 Практическая работа:
 * Cоздание [Azure Machine Learning workspace](https://studio.azureml.net/)
-* Семантический анализ твитов в Azure ML Web Studio
-* TODO: тренировка ML-модели в Azure Notebooks.
+* [Семантический анализ твитов в Azure ML Web Studio](https://www.codeinstinct.pro/2015/12/community-dev-camp14.html)
+* TODO: Обучение ML-модели в Azure Notebooks.
 
 Материалы по теме:
 * [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vi51cDmfJywjXGUuqnQ?e=8FA5RD)
@@ -62,29 +62,33 @@ ___Интесив по машинному обучению в облаке Micro
 
 Материалы по теме:
 * [Презентация](http://0xcode.in/deep-learning-intro)
-* TODO: [...]()
+* [Курсы по специализации Deep Learning](https://www.deeplearning.ai/deep-learning-specialization/), Andrew Ng, et al.
+* [Deep Learning Book](http://www.deeplearningbook.org/), Ian Goodfellow, et al.
 
 
 ## Azure Data Science VMs
 
 Темы занятия:
-* Виртуальные машины для обучения ML-моделей в облаке: IaaS для ML и типы образов VM для Data Science
-* Automated ML: обзор, популярные фреймворки, Auto ML в Azure.
+* _Виртуальные машины для обучения ML-моделей_: IaaS для ML и типы образов VM для Data Science
+* _Automated ML_: обзор, популярные фреймворки, Auto ML в Azure.
 
 Практическая работа:
-* TODO: Развертывание Azure Deep Learning VM
+* Развертывание Azure Deep Learning VM
 * TODO: ...
 
 Материалы по теме:
 * [Презентация](http://0xcode.in/deep-learning-intro)
-* TODO: [...]()
+* [Azure Data Science VM documentation](https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/)
+* [Azure Automated ML documentation](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml).
 
 
 ## Другие инструменты для Data Science в Azure
 
 Темы занятия:
-* TODO: Azure Open Datasets
-* DevOps для Data Science.
+* DevOps для Data Science
+* TODO: Наборы данных:
+  * [Azure Open Datasets](https://azure.microsoft.com/en-in/services/open-datasets/)
+  * [Kaggle Datasets](https://www.kaggle.com/datasets).
 
 Материалы по теме:
 * [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html)
@@ -95,12 +99,8 @@ ___Интесив по машинному обучению в облаке Micro
 
 Участвуем в соревновании Kaggle:
 * TODO: Соревнования в Data Science и Kaggle
-* Регистрация на Kaggle
-* TODO: Выбор kernel’a и запуск обучения модели в облаке Azure.
-
-Материалы и ссылки:
-* [Kaggle.com](https://www.kaggle.com/)
-* TODO: [...]()
+* [Регистрация на Kaggle](https://www.kaggle.com/)
+* TODO: Выбор kernel'a и запуск обучения модели в облаке Azure.
 
 
 ## Требование к слушателям
