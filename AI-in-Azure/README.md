@@ -1,61 +1,105 @@
 
-# AI in Microsoft Azure. Workshop
-_Интесив по машинному обучению в облаке Microsoft Azure_
+# AI in Azure: Workshop
+___Интесив по машинному обучению в облаке Microsoft Azure___
 
-## Introduction to Machine Learning and Deep Learning
-Введение в машинное обучение и глубокие нейронные сети.
-* типовые задачи: обучение с учителем, обучение без учителя, обучение с подкреплением;
-* классы алгоритмов: регрессия, классификация, кластеризация;
-* интуитивное понимание классических алгоритмов: от линейной регрессии до ансамблей деревьев.
-* типы нейронных сетей: полно связанные прямого распространения, сверочные, рекуррентные, состязательные нейросети.
-* Практическая работа.
 
-Материалы и ссылки:
-* Материалы по [Introduction to Machine Learning](http://0xcode.in/machine-learning-intro)
-* Материалы по [Introduction to Deep Learning](http://0xcode.in/deep-learning-intro).
+## Введение в машинное обучение
+
+Темы занятия:
+* _Типовые задачи:_ обучение с учителем, обучение без учителя, обучение с подкреплением
+* _Классы алгоритмов:_ регрессия, классификация, кластеризация
+* _Интуитивное понимание алгоритмов:_ от линейной регрессии до нейронных сетей.
+
+Материалы по теме:
+* [Презентация](http://0xcode.in/machine-learning-intro)
+* TODO: [...]()
+
 
 ## Azure AI Platform
-Обзор Azure AI Platform
-* обзор AI-сервисов и AI-инструментов в Azure
-* как выбрать правильный сервис для конкретной задачи?
 
-Материалы и ссылки:
+Темы занятия:
+* Обзор ML-сервисов и ML-инструментов в Azure
+* TODO: как выбрать правильный сервис для конкретной задачи?
+
+Материалы по теме:
+* TODO: [Презентация]()
 * [Azure.com/AI](https://www.azure.com/ai)
 * [Microsoft AI Blog](https://blogs.microsoft.com/ai/).
 
+
 ## Azure Machine Learning
-Azure Machine Learning – интерактивный сервис предиктивной аналитики
-* Обзор сервиса
-* Получение и трансформация данных в Azure ML Web Studio
+
+Темы занятия:
+* Обзор сервиса _Azure ML__
+* Получение и трансформация данных в _Azure ML Web Studio_
 * ML-алгоритмы, обучение моделей и оценка точности в Azure ML Web Studio
-* Azure Notebooks – интерактивный ноутбук для анализа и разработки ML-моделей
-* Практическая работа.
+* _Azure Notebooks_: интерактивное приложение для анализа и разработки ML-моделей.
 
-Материалы и ссылки:
-* [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet)
+Практическая работа:
+* TODO: создание Azure Machine Learning workspace
+* TODO: тренировка ML-модели в Azure ML Web Studio
+* TODO: тренировка ML-модели в Azure Notebooks.
 
-## Data Science VMs
-Azure Data Science VM и Deep Learning VM
+Материалы по теме:
+* TODO: [Презентация]()
+* TODO:[Microsoft Docs]()
+* [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet).
+
+
+## Введение глубокие нейронные сети
+Темы занятия:
+* Современный этап развития нейронных сетей
+* _Типы нейронных сетей:_
+  * Полносвязанные сети прямого распространения (FNN)
+  * Сверочные нейронные сети (CNN) 
+  * Рекуррентные нейронные сети (RNN)
+  * Состязательные нейронные сети (GAN)
+  * TODO: другие типы нейросетей.
+
+Материалы по теме:
+* [Презентация](http://0xcode.in/deep-learning-intro)
+* TODO: [...]()
+
+
+## Azure Data Science VMs
+
+Темы занятия:
 * Виртуальные машины для обучения ML-моделей в облаке: IaaS для ML и типы образов VM для Data Science
-* Automated ML: обзор, популярные фреймворки, Auto ML в Azure
-* Практическая работа.
+* Automated ML: обзор, популярные фреймворки, Auto ML в Azure.
 
-## Other tools for data scientist in Azure
-Другие инструменты Data Science в Azure
-* DevOps для Data Science
-* Azure Open Datasets.
+Практическая работа:
+* TODO: Развертывание Azure Deep Learning VM
+* TODO: ...
+
+Материалы по теме:
+* [Презентация](http://0xcode.in/deep-learning-intro)
+* TODO: [...]()
+
+
+## Другие инструменты для Data Science в Azure
+
+Темы занятия:
+* TODO: Azure Open Datasets
+* DevOps для Data Science.
+
+Материалы по теме:
+* [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html)
+* TODO: [...]()
+
+
+## Финальный проект
+
+Участвуем в соревновании Kaggle:
+* TODO: Соревнования в Data Science и Kaggle
+* Регистрация на Kaggle
+* TODO: Выбор kernel’a и запуск обучения модели в облаке Azure.
 
 Материалы и ссылки:
-* https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html
+* [Kaggle.com](https://www.kaggle.com/)
+* TODO: [...]()
 
-## Final practice
-Участвуем в соревновании Kaggle
-* Участие в самой знаменитой площадке для соревнований у data scientist’ов. Выбор kernel’a и запуск обучения модели в облаке Azure.
 
-Материалы и ссылки:
-* https://www.kaggle.com/
-
-## Requirements
+## Требование к слушателям
 1. Современный веб-браузер;
 2. Microsoft Azure Account: бесплатно по [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/) 
-([другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)).
+(или [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)).
