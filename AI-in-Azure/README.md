@@ -12,19 +12,21 @@ ___Интесив по машинному обучению в облаке Micro
 
 Материалы по теме:
 * [Презентация](http://0xcode.in/machine-learning-intro)
-* TODO: [...]()
+* [Курс Машинное обучение](https://ru.coursera.org/learn/machine-learning), Standford
+* [Курс Введение в машинное обучение](https://ru.coursera.org/learn/vvedenie-mashinnoe-obuchenie), ВЭШ и ШАД Яндекс
 
 
 ## Azure AI Platform
 
 Темы занятия:
 * Обзор ML-сервисов и ML-инструментов в Azure
-* TODO: как выбрать правильный сервис для конкретной задачи?
+* Как выбрать правильный сервис для конкретной задачи?
 
 Материалы по теме:
-* TODO: [Презентация]()
+* [Презентация](http://0xcode.in/machine-learning-intro) TODO: добавить слайды из https://www.codeinstinct.pro/2017/04/democratizing-ai.html
 * [Azure.com/AI](https://www.azure.com/ai)
 * [Microsoft AI Blog](https://blogs.microsoft.com/ai/).
+* [Microsoft Azure for Research Program](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/)
 
 
 ## Azure Machine Learning
@@ -36,14 +38,16 @@ ___Интесив по машинному обучению в облаке Micro
 * _Azure Notebooks_: интерактивное приложение для анализа и разработки ML-моделей.
 
 Практическая работа:
-* TODO: создание Azure Machine Learning workspace
-* TODO: тренировка ML-модели в Azure ML Web Studio
+* Cоздание [Azure Machine Learning workspace](https://studio.azureml.net/)
+* Семантический анализ твитов в Azure ML Web Studio
 * TODO: тренировка ML-модели в Azure Notebooks.
 
 Материалы по теме:
-* TODO: [Презентация]()
-* TODO:[Microsoft Docs]()
-* [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet).
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vi51cDmfJywjXGUuqnQ?e=8FA5RD)
+* [Azure Machine Learning documentation](https://docs.microsoft.com/en-us/azure/machine-learning/)
+* [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet)
+* [Лекция в ВШЭ/МАМИ по Azure Machine Learning](https://www.codeinstinct.pro/2015/10/azureml-lecture-at-hse.html)
+* [Хакатон по машинному обучению: Прийти. Обучить модель. Победить!](https://www.codeinstinct.pro/2015/11/azure-ml-hackathon.html)
 
 
 ## Введение глубокие нейронные сети
