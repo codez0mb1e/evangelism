@@ -6,6 +6,7 @@ ___Интесив по машинному обучению в облаке Micro
 ## Введение в машинное обучение
 
 Темы занятия:
+* Терминология
 * _Типовые задачи:_ обучение с учителем, обучение без учителя, обучение с подкреплением
 * _Классы алгоритмов:_ регрессия, классификация, кластеризация
 * _Интуитивное понимание алгоритмов:_ от линейной регрессии до нейронных сетей.
@@ -19,28 +20,29 @@ ___Интесив по машинному обучению в облаке Micro
 ## Azure AI Platform
 
 Темы занятия:
-* Обзор ML-сервисов и ML-инструментов в Azure
-* Как выбрать правильный сервис для конкретной задачи?
+* TODO: Обзор ML-сервисов и ML-инструментов в Azure
+* Выбираем ML-сервис для конкретной задачи
 
 Материалы по теме:
-* [Презентация](http://0xcode.in/machine-learning-intro) TODO: добавить слайды из https://www.codeinstinct.pro/2017/04/democratizing-ai.html
+* [Презентация]() 
+  * TODO: добавить слайды из https://www.codeinstinct.pro/2017/04/democratizing-ai.html
 * [Azure.com/AI](https://www.azure.com/ai)
 * [Microsoft AI Blog](https://blogs.microsoft.com/ai/).
 * [Microsoft Azure for Research Program](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/)
 
 
-## Azure Machine Learning
+## Azure Machine Learning Studio
 
 Темы занятия:
-* Обзор сервиса _Azure ML__
+* Обзор сервиса _Azure ML Studio_
 * Получение и трансформация данных в _Azure ML Web Studio_
-* ML-алгоритмы, обучение моделей и оценка точности в Azure ML Web Studio
+* ML-алгоритмы, обучение и оценка моделей в Azure ML Web Studio
 * _Azure Notebooks_: интерактивное приложение для анализа и разработки ML-моделей.
 
 Практическая работа:
 * Cоздание [Azure Machine Learning workspace](https://studio.azureml.net/)
-* [Семантический анализ твитов в Azure ML Web Studio](https://www.codeinstinct.pro/2015/12/community-dev-camp14.html)
-* TODO: Обучение ML-модели в Azure Notebooks.
+* TODO: [Семантический анализ твитов в Azure ML Web Studio](https://www.codeinstinct.pro/2015/12/community-dev-camp14.html)
+* TODO: [Семантический анализ твитов в Azure Notebooks]().
 
 Материалы по теме:
 * [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vi51cDmfJywjXGUuqnQ?e=8FA5RD)
@@ -77,7 +79,8 @@ ___Интесив по машинному обучению в облаке Micro
 * TODO: ...
 
 Материалы по теме:
-* [Презентация](http://0xcode.in/deep-learning-intro)
+* TODO: [Презентация по Data Science VM](http://0xcode.in/deep-learning-intro)
+* [Презентация по Auto ML](http://0xcode.in/auto-ml-intro)
 * [Azure Data Science VM documentation](https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/)
 * [Azure Automated ML documentation](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml).
 
