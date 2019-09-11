@@ -110,3 +110,8 @@ ___Интесив по машинному обучению в облаке Micro
 1. Современный веб-браузер;
 2. Microsoft Azure Account: бесплатно по [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/) 
 (или [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)).
+
+
+TODO: 
+- merge branches
+- add links to updateв slides
