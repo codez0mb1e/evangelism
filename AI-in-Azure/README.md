@@ -25,7 +25,6 @@ ___Интесив по машинному обучению в облаке Micro
 
 Материалы по теме:
 * [Презентация]() 
-  * TODO: добавить слайды из https://www.codeinstinct.pro/2017/04/democratizing-ai.html
 * [Azure.com/AI](https://www.azure.com/ai)
 * [Microsoft AI Blog](https://blogs.microsoft.com/ai/).
 * [Microsoft Azure for Research Program](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/)
@@ -59,8 +58,7 @@ ___Интесив по машинному обучению в облаке Micro
   * Полносвязанные сети прямого распространения (FNN)
   * Сверочные нейронные сети (CNN) 
   * Рекуррентные нейронные сети (RNN)
-  * Состязательные нейронные сети (GAN)
-  * TODO: другие типы нейросетей.
+  * Состязательные нейронные сети (GAN).
 
 Материалы по теме:
 * [Презентация](http://0xcode.in/deep-learning-intro)
@@ -90,8 +88,9 @@ ___Интесив по машинному обучению в облаке Micro
 Темы занятия:
 * DevOps для Data Science
 * TODO: Наборы данных:
+  * [Kaggle Datasets](https://www.kaggle.com/datasets)
+  * [github.com/awesomedata](https://github.com/awesomedata/awesome-public-datasets)
   * [Azure Open Datasets](https://azure.microsoft.com/en-in/services/open-datasets/)
-  * [Kaggle Datasets](https://www.kaggle.com/datasets).
 
 Материалы по теме:
 * [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html)
