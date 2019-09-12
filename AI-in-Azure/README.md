@@ -3,6 +3,12 @@
 ___Интесив по машинному обучению в облаке Microsoft Azure___
 
 
+TODO: 
+- Текстовое описание курса
+- Видео intro
+- Видео про AML
+
+
 ## Введение в машинное обучение
 
 Темы занятия:
@@ -12,22 +18,22 @@ ___Интесив по машинному обучению в облаке Micro
 * _Интуитивное понимание алгоритмов:_ от линейной регрессии до нейронных сетей.
 
 Материалы по теме:
-* [Презентация](http://0xcode.in/machine-learning-intro)
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkCLr7vKvADYpWZgA?e=mKuzCn)
 * [Курс Машинное обучение](https://ru.coursera.org/learn/machine-learning), Standford
-* [Курс Введение в машинное обучение](https://ru.coursera.org/learn/vvedenie-mashinnoe-obuchenie), ВЭШ и ШАД Яндекс
+* [Курс Введение в машинное обучение](https://ru.coursera.org/learn/vvedenie-mashinnoe-obuchenie), ВЭШ и ШАД Яндекс.
 
 
 ## Azure AI Platform
 
 Темы занятия:
-* Data science инструменты в Azure: основные языки программирования, ML-фреймворки и облачные сервисы
+* Data Science инструменты в Azure: основные языки программирования, ML-фреймворки и облачные сервисы
 * Выбираем ML-сервис для конкретной задачи
 
 Материалы по теме:
-* [Презентация]() 
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw) 
 * [Azure.com/AI](https://www.azure.com/ai)
-* [Microsoft AI Blog](https://blogs.microsoft.com/ai/).
-* [Microsoft Azure for Research Program](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/)
+* [Microsoft AI Blog](https://blogs.microsoft.com/ai/)
+* [Microsoft Azure for Research Program](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/).
 
 
 ## Azure Machine Learning Studio
@@ -40,8 +46,12 @@ ___Интесив по машинному обучению в облаке Micro
 
 Практическая работа:
 * Cоздание [Azure Machine Learning workspace](https://studio.azureml.net/)
-* TODO: [Семантический анализ твитов в Azure ML Web Studio](https://www.codeinstinct.pro/2015/12/community-dev-camp14.html)
-* TODO: [Семантический анализ твитов в Azure Notebooks]().
+* Первые шаги в Azure ML Studio:
+  * Задача классификации диабета в Azure ML Web Studio
+  * Задача классификации онкологических заболеваний в Azure Notebooks
+* Продвинутые техники работы с Azure ML Studio:
+  * [Семантический анализ твитов в Azure ML Web Studio](https://www.codeinstinct.pro/2015/12/community-dev-camp14.html)
+  * Создание REST сервиса анализа твитов в Azure ML Web Services.
 
 Материалы по теме:
 * [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vi51cDmfJywjXGUuqnQ?e=8FA5RD)
@@ -61,7 +71,7 @@ ___Интесив по машинному обучению в облаке Micro
   * Состязательные нейронные сети (GAN).
 
 Материалы по теме:
-* [Презентация](http://0xcode.in/deep-learning-intro)
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkEnIm-_G37lRIkZg?e=Jtcp8T)
 * [Курсы по специализации Deep Learning](https://www.deeplearning.ai/deep-learning-specialization/), Andrew Ng, et al.
 * [Deep Learning Book](http://www.deeplearningbook.org/), Ian Goodfellow, et al.
 
@@ -74,10 +84,11 @@ ___Интесив по машинному обучению в облаке Micro
 
 Практическая работа:
 * Развертывание Azure Deep Learning VM
-* TODO: ...
+* Практикум по компьютерному зрению:
+  * [Распознание рукописного написания цифр (база MNIST)](https://github.com/codez0mb1e/Cloud-RStudio-Server/blob/master/tests/keras_install_tests.R)
 
 Материалы по теме:
-* TODO: [Презентация по Data Science VM](http://0xcode.in/deep-learning-intro)
+* [Презентация по Data Science VM (слайды 23-24)](https://1drv.ms/p/s!Aq3CCEvm580vjLkEnIm-_G37lRIkZg?e=Jtcp8T)
 * [Презентация по Auto ML](http://0xcode.in/auto-ml-intro)
 * [Azure Data Science VM documentation](https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/)
 * [Azure Automated ML documentation](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml).
@@ -87,22 +98,21 @@ ___Интесив по машинному обучению в облаке Micro
 
 Темы занятия:
 * DevOps для Data Science
-* TODO: Наборы данных:
+* Наборы данных:
   * [Kaggle Datasets](https://www.kaggle.com/datasets)
   * [github.com/awesomedata](https://github.com/awesomedata/awesome-public-datasets)
   * [Azure Open Datasets](https://azure.microsoft.com/en-in/services/open-datasets/)
 
 Материалы по теме:
 * [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html)
-* TODO: [...]()
 
 
 ## Финальный проект
 
 Участвуем в соревновании Kaggle:
-* TODO: Соревнования в Data Science и Kaggle
+* Соревнования в Data Science и Kaggle
 * [Регистрация на Kaggle](https://www.kaggle.com/)
-* TODO: Выбор kernel'a и запуск обучения модели в облаке Azure.
+* Выбор kernel'a и запуск обучения модели в облаке Azure.
 
 
 ## Требование к слушателям
@@ -113,4 +123,5 @@ ___Интесив по машинному обучению в облаке Micro
 
 TODO: 
 - merge branches
-- add links to updateв slides
+- spell checking
+
