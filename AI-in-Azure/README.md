@@ -3,12 +3,6 @@
 ___Интесив по машинному обучению в облаке Microsoft Azure___
 
 
-TODO: 
-- Текстовое описание курса
-- Видео intro
-- Видео про AML
-
-
 ## Введение в машинное обучение
 
 Темы занятия:
@@ -19,7 +13,7 @@ TODO:
 
 Материалы по теме:
 * [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkCLr7vKvADYpWZgA?e=mKuzCn)
-* [Курс Машинное обучение](https://ru.coursera.org/learn/machine-learning), Standford
+* [Курс Машинное обучение](https://ru.coursera.org/learn/machine-learning), Stanford University
 * [Курс Введение в машинное обучение](https://ru.coursera.org/learn/vvedenie-mashinnoe-obuchenie), ВЭШ и ШАД Яндекс.
 
 
@@ -119,9 +113,4 @@ TODO:
 1. Современный веб-браузер;
 2. Microsoft Azure Account: бесплатно по [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/) 
 (или [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)).
-
-
-TODO: 
-- merge branches
-- spell checking
 
