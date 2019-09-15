@@ -3,6 +3,8 @@
 ___Интесив по машинному обучению в облаке Microsoft Azure___
 
 
+TODO: add intro video
+
 ## Введение в машинное обучение
 
 Темы занятия:
@@ -79,7 +81,7 @@ ___Интесив по машинному обучению в облаке Micro
 Практическая работа:
 * Развертывание Azure Deep Learning VM
 * Практикум по компьютерному зрению:
-  * [Распознание рукописного написания цифр (база MNIST)](https://github.com/codez0mb1e/Cloud-RStudio-Server/blob/master/tests/keras_install_tests.R)
+  * Распознание рукописного написания цифр (база MNIST): [Azure ML](https://gallery.azure.ai/Experiment/Neural-Network-Convolution-and-pooling-deep-net-2), [keras](https://github.com/codez0mb1e/cloud-rstudio-server/blob/master/tests/keras_install_tests.R)
 
 Материалы по теме:
 * [Презентация по Data Science VM (слайды 23-24)](https://1drv.ms/p/s!Aq3CCEvm580vjLkEnIm-_G37lRIkZg?e=Jtcp8T)
@@ -93,9 +95,16 @@ ___Интесив по машинному обучению в облаке Micro
 Темы занятия:
 * DevOps для Data Science
 * Наборы данных:
+  * [Azure Open Datasets](https://azure.microsoft.com/en-in/services/open-datasets/)
   * [Kaggle Datasets](https://www.kaggle.com/datasets)
   * [github.com/awesomedata](https://github.com/awesomedata/awesome-public-datasets)
-  * [Azure Open Datasets](https://azure.microsoft.com/en-in/services/open-datasets/)
+* Поиск решений community:
+  * AI list on [arxiv.org](https://arxiv.org/list/cs.AI/recent)
+  * [datascience.stackexchange.com](https://datascience.stackexchange.com/)
+  * [github.com](https://github.com/)
+* DS-cоревнования
+  * [Kaggle](https://www.kaggle.com/)
+  * [Тренировки и разбор соревнований](https://mltrainings.ru/).
 
 Материалы по теме:
 * [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html)
@@ -104,7 +113,6 @@ ___Интесив по машинному обучению в облаке Micro
 ## Финальный проект
 
 Участвуем в соревновании Kaggle:
-* Соревнования в Data Science и Kaggle
 * [Регистрация на Kaggle](https://www.kaggle.com/)
 * Выбор kernel'a и запуск обучения модели в облаке Azure.
 
