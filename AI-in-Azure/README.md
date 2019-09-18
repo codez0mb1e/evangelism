@@ -50,7 +50,7 @@ TODO: add intro video
   * Создание REST сервиса анализа твитов в Azure ML Web Services.
 
 Материалы по теме:
-* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vi51cDmfJywjXGUuqnQ?e=8FA5RD)
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw)
 * [Azure Machine Learning documentation](https://docs.microsoft.com/en-us/azure/machine-learning/)
 * [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet)
 * [Лекция в ВШЭ/МАМИ по Azure Machine Learning](https://www.codeinstinct.pro/2015/10/azureml-lecture-at-hse.html)
@@ -72,7 +72,7 @@ TODO: add intro video
 * [Deep Learning Book](http://www.deeplearningbook.org/), Ian Goodfellow, et al.
 
 
-## Azure Data Science VMs
+## Azure Data Science VM
 
 Темы занятия:
 * _Виртуальные машины для обучения ML-моделей_: IaaS для ML и типы образов VM для Data Science
@@ -84,7 +84,7 @@ TODO: add intro video
   * Распознание рукописного написания цифр (база MNIST): [Azure ML](https://gallery.azure.ai/Experiment/Neural-Network-Convolution-and-pooling-deep-net-2), [keras](https://github.com/codez0mb1e/cloud-rstudio-server/blob/master/tests/keras_install_tests.R)
 
 Материалы по теме:
-* [Презентация по Data Science VM (слайды 23-24)](https://1drv.ms/p/s!Aq3CCEvm580vjLkEnIm-_G37lRIkZg?e=Jtcp8T)
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw)
 * [Презентация по Auto ML](http://0xcode.in/auto-ml-intro)
 * [Azure Data Science VM documentation](https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/)
 * [Azure Automated ML documentation](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml).
