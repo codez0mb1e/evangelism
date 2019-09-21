@@ -120,3 +120,8 @@ ___Интесив по технологиям машинного обучени�
 2. Microsoft Azure Account: бесплатно по [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/) 
 (или [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)).
 
+
+# 
+[YouTube playlist](https://www.youtube.com/playlist?list=PL5t0URME4pruPek_NYXwBShaE7csZ_Xih)
+
+
