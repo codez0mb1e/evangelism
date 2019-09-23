@@ -1,19 +1,28 @@
 
-#' 
-#' Train a convolution neural network on the MNIST dataset 
-#' using Keras (Tensorflow backend)
-#' 
-#' References:
-#'   * https://tensorflow.rstudio.com/keras/articles/examples/index.html
-#' 
+---
+title: "CNN on MNIST dataset"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+___Train a convolution neural network on the MNIST dataset using Keras (Tensorflow backend)___
 
 
+
+## Init Keras
+```{r init_keras, message=FALSE, warning=FALSE}
 library(keras)
-# install_keras(tensorflow = "gpu") # WARN: uncomment if you want to train model with GPU
+install_keras(tensorflow = "gpu") # WARN: uncomment if you want to train model with GPU
+```
 
 
 
-# 1. Load an preprocessing data ----
+## Load and preprocessing MNIST dataset
+
+```{r}
 mnist <- dataset_mnist()
 
 # split dataset
@@ -34,12 +43,16 @@ x_test <- reshapeArray(mnist$test$x)
 y_train <- mnist$train$y
 y_test <- mnist$test$y
 
+```
 
 
-# 2.1. Set training params ----
+
+
+### Set training params
+```{r}
 batch_size <- 128
 num_classes <- 10
-epochsN <- 12 # 99.25% test accuracy after 12 epochs
+epochsN <- 4 # 99.25% test accuracy after 12 epochs
 
 # convert class vectors to binary class matrices
 y_train <- to_categorical(y_train, num_classes)
@@ -49,9 +62,12 @@ input_shape <- c(dim(x_train)[2],
                  dim(x_train)[3],
                  dim(x_train)[4])
 
+```
 
 
-# 2.2. Define model -----
+
+### Define CNN arhitecture
+```{r}
 model <- keras_model_sequential() %>%
   layer_conv_2d(filters = 64, kernel_size = c(3, 3), activation = "relu", input_shape = input_shape) %>% 
   layer_conv_2d(filters = 128, kernel_size = c(3, 3), activation = "relu") %>% 
@@ -62,9 +78,12 @@ model <- keras_model_sequential() %>%
   layer_dropout(rate = .25) %>% 
   layer_dense(units = num_classes, activation = "softmax")
 
+```
 
 
-# 2.3. Compile model ----
+
+### Compile model
+```{r}
 model %>% compile(
   loss = loss_categorical_crossentropy,
   optimizer = optimizer_adadelta(),
@@ -72,28 +91,37 @@ model %>% compile(
 )
 
 summary(model)
+```
 
 
 
-# 2.4. Train model ----
+
+### Train model
+```{r message=TRUE, warning=TRUE}
 model %>% fit(
   x_train, y_train,
   batch_size = batch_size,
   epochs = epochsN,
   validation_split = .2
 )
+```
 
-# Look what's going on terminal:
-#$ htop
-#$ watch -n 0.5 nvidia-smi
+Look what's going on terminal:
+```
+$ htop
+$ watch -n 0.5 nvidia-smi
+```
 
 
 
-# 2.5. Evaluate model
+### Evaluate model
+```{r}
 scores <- model %>% evaluate(
   x_test, y_test, verbose = 1
 )
 
-sprintf("Test loss: %s", scores[[1]])
-sprintf("Test accuracy: %s", scores[[2]])
+print(sprintf("Test loss: %s", scores[[1]]))
+print(sprintf("Test accuracy: %s", scores[[2]]))
+
+```
 

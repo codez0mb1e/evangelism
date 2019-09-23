@@ -1,28 +1,44 @@
 
-#' 
-#' Inference VGG-16 Pre-trained Model (ImageNet Challenge) using Keras
-#' 
-#' References:
-#'   * https://arxiv.org/abs/1409.1556
-#' 
+---
+title: " Inference VGG-16 Pre-trained Model"
+output: github_document
+---
+
+___Inference VGG-16 Pre-trained Model (ImageNet Challenge) using Keras___
 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Init Keras
+```{r init_keras, message=FALSE, warning=FALSE}
 library(keras)
-library(purrr)
+install_keras(tensorflow = "gpu") # WARN: uncomment if you want to train model with GPU
+```
 
 
-# 1. Get files
-# WARN: save images locally and set <images_dir> explicitly 
+
+## Get files
+WARN: save images locally and set <images_dir> explicitly 
+```{r}
 files <- dir("<images_dir>", pattern = ".jpg", full.names = T) 
 print(files)
 
+```
 
-# 2. Load model
+
+## Load model
+```{r}
 model <- application_vgg16(weights = "imagenet")
 summary(model)
 
+```
 
-# 3. Predict and evaluate
+
+## Predict and evaluate
+```{r}
 output <- map(files,
               function(.f) {
                 
@@ -38,4 +54,8 @@ output <- map(files,
                 # evaluate
                 imagenet_decode_predictions(pred, top = 3)[[1]]
               })
+```
 
+
+## References:
+* https://arxiv.org/abs/1409.1556

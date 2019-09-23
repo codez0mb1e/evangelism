@@ -1,3 +1,8 @@
+
+#'
+#' This is code snippet for R-module script in Azure ML
+#'
+
 input <- maml.mapInputPort(1)
 
 feat <- data.matrix(input[, 2:11])
@@ -7,4 +12,5 @@ correct <- sum(diag(feat))
 
 result <- data.frame(accuracy = correct/total)
 
-maml.mapOutputPort("result");
+maml.mapOutputPort("result")
+
