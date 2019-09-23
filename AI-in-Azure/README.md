@@ -3,7 +3,14 @@
 ___Интесив по технологиям машинного обучения в облаке Microsoft Azure___
 
 
-## Введение в машинное обучение
+_Цель курса_: дать представление о дисциплинах Машинное обучение (_Machine Learning_) и Глубокое обучение (_Deep Learning_), 
+а также познакомить слушателей с сервисами машинного обучения в облаке Microsoft Azure. 
+
+[Вводный ролик к курсу](https://youtu.be/aew5exB5Xxg)
+
+
+## Программа курса
+### Введение в машинное обучение
 
 Темы занятия:
 * Основная терминология, область применения и актуальность
@@ -11,26 +18,31 @@ ___Интесив по технологиям машинного обучени�
 * _Классы алгоритмов:_ регрессия, классификация, кластеризация
 * _Интуитивное понимание алгоритмов:_ от линейной регрессии до нейронных сетей.
 
-Материалы по теме:
-* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkCLr7vKvADYpWZgA?e=mKuzCn)
+Материалы лекции:
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkCLr7vKvADYpWZgA?e=mKuzCn).
+
+Дополнительные материалы по теме:
 * [Курс Машинное обучение](https://ru.coursera.org/learn/machine-learning), Stanford University
 * [Курс Введение в машинное обучение](https://ru.coursera.org/learn/vvedenie-mashinnoe-obuchenie), ВЭШ и ШАД Яндекс.
 
 
-## Azure AI Platform
+### Azure AI Platform
 
 Темы занятия:
-* Data Science инструменты в Azure: основные языки программирования, ML-фреймворки и облачные сервисы
+* Data Science инструменты в Azure: основные языки программирования, ML-фреймворки и облачные сервисы.
 * Выбираем ML-сервис для конкретной задачи
 
-Материалы по теме:
-* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw) 
+Материалы лекции:
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw)
+* Видеоурок [Введение в Azure AI Platform](https://youtu.be/G-37PWkftGg).
+
+Дополнительные материалы по теме:
 * [Azure.com/AI](https://www.azure.com/ai)
 * [Microsoft AI Blog](https://blogs.microsoft.com/ai/)
 * [Microsoft Azure for Research Program](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/).
 
 
-## Azure Machine Learning Studio
+### Azure Machine Learning Studio
 
 Темы занятия:
 * Обзор сервиса _Azure ML Studio_
@@ -47,15 +59,19 @@ ___Интесив по технологиям машинного обучени�
   * [Семантический анализ твитов в Azure ML Web Studio](https://www.codeinstinct.pro/2015/12/community-dev-camp14.html)
   * Создание REST сервиса анализа твитов в Azure ML Web Services.
 
-Материалы по теме:
+Материалы лекции:
 * [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw)
+* Видеоурок [Начало работы в Azure ML Studio](https://youtu.be/TXBV2Nnrpfc).
+
+Дополнительные материалы по теме:
 * [Azure Machine Learning documentation](https://docs.microsoft.com/en-us/azure/machine-learning/)
 * [Machine Learning Algorithm Cheat Sheet](https://docs.microsoft.com/en-us/azure/machine-learning/studio/algorithm-cheat-sheet)
 * [Лекция в ВШЭ/МАМИ по Azure Machine Learning](https://www.codeinstinct.pro/2015/10/azureml-lecture-at-hse.html)
 * [Хакатон по машинному обучению: Прийти. Обучить модель. Победить!](https://www.codeinstinct.pro/2015/11/azure-ml-hackathon.html)
+* [Machine Learning Studio pricing](https://azure.microsoft.com/pricing/details/machine-learning-studio/).
 
 
-## Введение глубокие нейронные сети
+### Введение глубокие нейронные сети
 Темы занятия:
 * Современный этап развития нейронных сетей
 * _Типы нейронных сетей:_
@@ -64,13 +80,15 @@ ___Интесив по технологиям машинного обучени�
   * Рекуррентные нейронные сети (RNN)
   * Состязательные нейронные сети (GAN).
 
-Материалы по теме:
-* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkEnIm-_G37lRIkZg?e=Jtcp8T)
+Материалы лекции:
+* [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkEnIm-_G37lRIkZg?e=Jtcp8T).
+
+Дополнительные материалы по теме:
 * [Курсы по специализации Deep Learning](https://www.deeplearning.ai/deep-learning-specialization/), Andrew Ng, et al.
 * [Deep Learning Book](http://www.deeplearningbook.org/), Ian Goodfellow, et al.
 
 
-## Azure Data Science VM
+### Azure Data Science VM
 
 Темы занятия:
 * _Виртуальные машины для обучения ML-моделей_: IaaS для ML и типы образов VM для Data Science
@@ -79,16 +97,19 @@ ___Интесив по технологиям машинного обучени�
 Практическая работа:
 * Развертывание Azure Deep Learning VM
 * Практикум по компьютерному зрению:
-  * Распознание рукописного написания цифр (база MNIST): [Azure ML](https://gallery.azure.ai/Experiment/Neural-Network-Convolution-and-pooling-deep-net-2), [keras](https://github.com/codez0mb1e/cloud-rstudio-server/blob/master/tests/keras_install_tests.R)
+  * Распознание рукописного написания цифр (база MNIST): [Azure ML](https://gallery.azure.ai/Experiment/Neural-Network-Convolution-and-pooling-deep-net-2), [keras](demos/mnist-cnn-model--keras/).
 
-Материалы по теме:
+Материалы лекции:
 * [Презентация](https://1drv.ms/p/s!Aq3CCEvm580vjLkDGRcDRPR4GwXG-A?e=6jjCJw)
 * [Презентация по Auto ML](http://0xcode.in/auto-ml-intro)
+* Видеоурок [Нейронные сети в Azure ML Studio](https://youtu.be/Pa5DmvvcwLI).
+
+Дополнительные материалы по теме:
 * [Azure Data Science VM documentation](https://docs.microsoft.com/en-us/azure/machine-learning/data-science-virtual-machine/)
 * [Azure Automated ML documentation](https://docs.microsoft.com/en-us/azure/machine-learning/service/concept-automated-ml).
 
 
-## Другие инструменты для Data Science в Azure
+### Другие инструменты для Data Science в Azure
 
 Темы занятия:
 * DevOps для Data Science
@@ -104,11 +125,11 @@ ___Интесив по технологиям машинного обучени�
   * [Kaggle](https://www.kaggle.com/)
   * [Тренировки и разбор соревнований](https://mltrainings.ru/).
 
-Материалы по теме:
-* [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html)
+Материалы лекции:
+* [Презентация](https://www.codeinstinct.pro/2018/11/data-science-in-cloud.html).
 
 
-## Финальный проект
+### Финальный проект
 
 Участвуем в соревновании Kaggle:
 * [Регистрация на Kaggle](https://www.kaggle.com/)
@@ -116,12 +137,10 @@ ___Интесив по технологиям машинного обучени�
 
 
 ## Требование к слушателям
+### Обязательные требования
 1. Современный веб-браузер;
-2. Microsoft Azure Account: бесплатно по [Azure Free](https://azure.microsoft.com/ru-ru/free/) или [Azure Pass](https://www.microsoftazurepass.com/) 
-(или [другие способы](http://www.codeinstinct.pro/2016/10/cloud-for-free.html)).
+2. [Microsoft Account](https://account.microsoft.com/).
 
-
-# 
-[YouTube playlist](https://www.youtube.com/playlist?list=PL5t0URME4pruPek_NYXwBShaE7csZ_Xih)
-
-
+### Рекомендованные требования
+1. Знание Python или R
+2. [Учетная запись в Azure](https://azure.microsoft.com/en-us/).
