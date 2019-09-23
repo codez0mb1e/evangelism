@@ -1,6 +1,6 @@
 
 # Demo: Deep Learning for MNIST Dataset
-_Convolution Neural Network for MNIST dataset in Azure Machine Learning Studio._
+_Convolution Neural Network for MNIST dataset with Keras framework._
 
 
 ### References
