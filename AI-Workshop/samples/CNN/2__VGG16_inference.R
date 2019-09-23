@@ -12,6 +12,7 @@ library(purrr)
 
 
 # 1. Get files
+# WARN: save images locally and set <images_dir> explicitly 
 files <- dir("<images_dir>", pattern = ".jpg", full.names = T) 
 print(files)
 
@@ -37,5 +38,4 @@ output <- map(files,
                 # evaluate
                 imagenet_decode_predictions(pred, top = 3)[[1]]
               })
-
 

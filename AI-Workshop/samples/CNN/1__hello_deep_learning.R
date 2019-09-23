@@ -1,7 +1,7 @@
 
 #' 
-#' Train a convolution network on the MNIST dataset using...
-#' Keras (Tensorflow backend) and GPU
+#' Train a convolution neural network on the MNIST dataset 
+#' using Keras (Tensorflow backend)
 #' 
 #' References:
 #'   * https://tensorflow.rstudio.com/keras/articles/examples/index.html
@@ -9,7 +9,7 @@
 
 
 library(keras)
-install_keras(tensorflow = "gpu")
+# install_keras(tensorflow = "gpu") # WARN: uncomment if you want to train model with GPU
 
 
 
@@ -83,9 +83,9 @@ model %>% fit(
   validation_split = .2
 )
 
-# Look what's going on:
-#    $ htop
-#    $ watch -n 0.5 nvidia-smi
+# Look what's going on terminal:
+#$ htop
+#$ watch -n 0.5 nvidia-smi
 
 
 
@@ -96,6 +96,4 @@ scores <- model %>% evaluate(
 
 sprintf("Test loss: %s", scores[[1]])
 sprintf("Test accuracy: %s", scores[[2]])
-
-
 
