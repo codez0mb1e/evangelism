@@ -1,6 +1,6 @@
 ## 1. Read data
 container <- "https://datainstinct.blob.core.windows.net/sberbank"
-queryString <- "?sv=2015-12-11&si=msdev-bot&sr=c&sig=o7rB0rZOcnngYdly2pkN7KZGX9hqhpJZmHArog%2BzbeM%3D"
+queryString <- "?sv=2015-12-11&si=msdev-bot&sr=c&sig=<access_key>"
 
 
 # from local file system
