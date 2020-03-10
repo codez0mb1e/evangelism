@@ -1,25 +1,22 @@
 # COVID-19 Data Mining Demo
 
+## Prepare
 
-## 0. Install Microsoft SQL Server Management Studio, or JetBrains Data Grip and connect to DB server
-
-## 1. Download [Coronavirus dataset](https://www.kaggle.com/kimjihoo/coronavirusdataset)
-
-## 2. Upload dataset to DB server
-
-- programmatically: python, java, c#, etc.
-- or manually.
+- Download [Coronavirus dataset](https://www.kaggle.com/kimjihoo/coronavirusdataset)
+- Install Microsoft SQL Server Management Studio, or JetBrains Data Grip and connect to DB server
+- Upload dataset to DB server
+   - programmatically: python, java, c#, etc.
+   - or manually.
 
 
-## 3. View data import results
+## View data import results
 ```
-
 SELECT TOP (1000) * FROM [dbo].[time]
 SELECT TOP (1000) * FROM [dbo].[route]
 SELECT TOP (1000) * FROM [dbo].[patient]
 ```
 
-## 4. Discovery your data
+## Discovery your data
 
 ```
 select distinct state
@@ -54,7 +51,7 @@ having count(*) > 1
 order by n desc
 ```
 
-## 6. Enrich data
+## Enrich data
 
 ```
 with infected_stats as (
@@ -70,7 +67,7 @@ from patient as p
 order by n desc, p.infected_by
 ```
 
-## 7. Create data mart
+## Create data mart
 
 ```
 create view dbo.patient_stats_vw
