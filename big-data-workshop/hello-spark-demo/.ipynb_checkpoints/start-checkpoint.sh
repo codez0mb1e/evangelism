@@ -21,3 +21,7 @@ R --version
 
 pyspark
 exit()
+
+
+# install new tools
+pip install wordcloud
