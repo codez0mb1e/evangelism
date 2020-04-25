@@ -10,7 +10,7 @@ htop
 
 # clone this repo
 git clone https://github.com/codez0mb1e/evangelism.git
-cd evangelism/big-data-workshop/hello-spark-demo
+cd evangelism/big-data-workshop/apache-spark-on-azure-vm/
 
 # open this script
 cat start.sh
