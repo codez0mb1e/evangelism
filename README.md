@@ -1,5 +1,12 @@
 # Evangelism
+
 ***The demos source code from my tech speakings.***
+
+
+----
+Note: __The current repository is archived, but you can find my last demo in [AI in Cloud Workshop](https://github.com/codez0mb1e/AI-in-cloud-workshop) repo__.
+
+----
 
 #### List of demos:
 
